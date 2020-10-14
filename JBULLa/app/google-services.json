@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "949072629696",
+    "firebase_url": "https://jbulla-a4a08.firebaseio.com",
+    "project_id": "jbulla-a4a08",
+    "storage_bucket": "jbulla-a4a08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949072629696:android:8da52540e6b358789c4225",
+        "android_client_info": {
+          "package_name": "com.mahammadjabi.jbullla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949072629696-6k5iirbt7ol7afta1f5ls0ai19eqm786.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mahammadjabi.jbullla",
+            "certificate_hash": "9dcc3bf75747811827e58105e9412fc566f97ad3"
+          }
+        },
+        {
+          "client_id": "949072629696-nr2dk5jdcv9dbn6nlpfv23idii83umo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBageZkd568yY-O0TuWUkZADrREXgE5R0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949072629696-nr2dk5jdcv9dbn6nlpfv23idii83umo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
