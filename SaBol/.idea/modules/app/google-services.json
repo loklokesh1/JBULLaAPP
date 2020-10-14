@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "380729495172",
+    "firebase_url": "https://mahammadjebibulla.firebaseio.com",
+    "project_id": "mahammadjebibulla",
+    "storage_bucket": "mahammadjebibulla.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380729495172:android:f18cc9d85b930b1b31fcd1",
+        "android_client_info": {
+          "package_name": "com.jabiullamahammad.sabol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380729495172-90sr38217m4mdkjpd7qmnkoobn33o1qs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jabiullamahammad.sabol",
+            "certificate_hash": "9dcc3bf75747811827e58105e9412fc566f97ad3"
+          }
+        },
+        {
+          "client_id": "380729495172-5vco09jcmudl6fkko2a0iu4rtj4fjib3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRk2mkLleRmK9Eh6mvMUNiZ3rEK1jje4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380729495172-5vco09jcmudl6fkko2a0iu4rtj4fjib3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
