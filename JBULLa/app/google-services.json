@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "949072629696",
-    "firebase_url": "https://jbulla-a4a08.firebaseio.com",
-    "project_id": "jbulla-a4a08",
-    "storage_bucket": "jbulla-a4a08.appspot.com"
+    "project_number": "397305821925",
+    "firebase_url": "https://mahajb-2d116.firebaseio.com",
+    "project_id": "mahajb-2d116",
+    "storage_bucket": "mahajb-2d116.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:949072629696:android:8da52540e6b358789c4225",
+        "mobilesdk_app_id": "1:397305821925:android:e943625cd1d71e4935720c",
         "android_client_info": {
-          "package_name": "com.mahammadjabi.jbullla"
+          "package_name": "com.mahammadjabi.jbulla"
         }
       },
       "oauth_client": [
         {
-          "client_id": "949072629696-6k5iirbt7ol7afta1f5ls0ai19eqm786.apps.googleusercontent.com",
+          "client_id": "397305821925-l59a4hkpajlsfes05ivng9lu2k9rb682.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.mahammadjabi.jbullla",
+            "package_name": "com.mahammadjabi.jbulla",
             "certificate_hash": "9dcc3bf75747811827e58105e9412fc566f97ad3"
           }
         },
         {
-          "client_id": "949072629696-nr2dk5jdcv9dbn6nlpfv23idii83umo0.apps.googleusercontent.com",
+          "client_id": "397305821925-4b5652002sktvae28fdfuchenhp3mej8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBageZkd568yY-O0TuWUkZADrREXgE5R0c"
+          "current_key": "AIzaSyBNwhYfw3vgtmZxebweFBlHYkf4PK_MeRg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "949072629696-nr2dk5jdcv9dbn6nlpfv23idii83umo0.apps.googleusercontent.com",
+              "client_id": "397305821925-4b5652002sktvae28fdfuchenhp3mej8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
