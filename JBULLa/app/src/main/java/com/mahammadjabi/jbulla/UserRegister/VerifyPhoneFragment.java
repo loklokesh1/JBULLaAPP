@@ -243,6 +243,6 @@ public class VerifyPhoneFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         timer.cancel();
-    }
+   }
 }
 

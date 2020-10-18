@@ -30,12 +30,10 @@ public class SignInFragment extends Fragment {
 
     private EditText email2, password2;
     public TextView createaccounttext,forgottext;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseAuth mfirebaseAuth;
     private Button btnlogin;
     private ProgressBar progess2;
     private FirebaseUser firebaseUser;
-    private  FirebaseAuth mAuth;
     private DatabaseReference UserRef;
 
 
