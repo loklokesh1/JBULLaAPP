@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,20 +44,24 @@ public class SetupActivity extends AppCompatActivity {
     private CircleImageView ProfileImage;
     private EditText UserName,CountryName,FullName;
     private Button SaveProfileInformationButton;
-    private ProgressBar progressBar;
+    private ProgressDialog progressDialogImage;
 
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef;
     private StorageReference UserProfileImageRef;
-
+    private ProgressBar progressBar;
     String currentUserID ;
     final static int Gallery_Pick = 1;
+
+    public static final Pattern VALID_USERNAME_REGEX =
+            Pattern.compile("^[A-Za-z0-9_-]{6,20}$", Pattern.CASE_INSENSITIVE);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
+
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
@@ -66,7 +72,8 @@ public class SetupActivity extends AppCompatActivity {
         FullName = (EditText) findViewById(R.id.fullName);
         CountryName = (EditText) findViewById(R.id.country);
         SaveProfileInformationButton = (Button) findViewById(R.id.setup_saveprofile);
-        progressBar = (ProgressBar) findViewById(R.id.progress);
+        progressBar = findViewById(R.id.progress);
+        progressDialogImage = new ProgressDialog(this);
 
         SaveProfileInformationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +83,7 @@ public class SetupActivity extends AppCompatActivity {
 
             }
         });
+
         ProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -97,22 +105,18 @@ public class SetupActivity extends AppCompatActivity {
                     if (dataSnapshot.hasChild("profileimage"))
                     {
                         String image = dataSnapshot.child("profileimage").getValue().toString();
-                        Picasso.with(SetupActivity.this).load(image).placeholder(R.drawable.ic_launcher_foreground).into(ProfileImage);
+                        Picasso.with(SetupActivity.this).load(image).placeholder(R.drawable.profile1).into(ProfileImage);
                     }
                     else
                     {
                         Toast.makeText(SetupActivity.this, "Please select profile ijmage first", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
     }
 
     @Override
@@ -130,6 +134,11 @@ public class SetupActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK)
             {
                 Uri resultUrl = result.getUri();
+
+                progressDialogImage.setTitle("Please wait...");
+                progressDialogImage.setMessage("Loading your image...");
+                progressDialogImage.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialogImage.show();
 
                 StorageReference filePath = UserProfileImageRef.child(currentUserID + ".jpg");
 
@@ -149,12 +158,14 @@ public class SetupActivity extends AppCompatActivity {
                                     {
                                         if (task.isSuccessful())
                                         {
-                                            Toast.makeText(SetupActivity.this, "profile image stored to firebase database successfully", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(SetupActivity.this, "profile image stored to firebase database successfully", Toast.LENGTH_SHORT).show();
+                                            progressDialogImage.dismiss();
                                         }
                                         else
                                         {
                                             String message = task.getException().getMessage();
                                             Toast.makeText(SetupActivity.this, "Error Occured: "+ message, Toast.LENGTH_SHORT).show();
+                                            progressDialogImage.dismiss();
                                         }
                                     }
                                 });
@@ -166,6 +177,7 @@ public class SetupActivity extends AppCompatActivity {
             else
             {
                 Toast.makeText(this,  "Error occured: Image can not be croped Try Again", Toast.LENGTH_SHORT).show();
+                progressDialogImage.dismiss();
             }
         }
     }
@@ -188,8 +200,13 @@ public class SetupActivity extends AppCompatActivity {
         {
             CountryName.setError("CountryName con't be Empty");
         }
+        if(!VALID_USERNAME_REGEX.matcher(UserName.getText().toString()).find())
+        {
+            UserName.setError("Please name aleast 6-20 characters \nuse \"A-Z\",\"a-z\",\"0-9\" ,\ndo not use Special characters");
+        }
         else
         {
+            progressBar.setVisibility(View.VISIBLE);
             HashMap userMap = new HashMap();
             userMap.put("username",Username);
             userMap.put("fullname",fullname);
@@ -206,19 +223,19 @@ public class SetupActivity extends AppCompatActivity {
                     if (task.isSuccessful())
                     {
                         SendUserToMainActivity();
+                        progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(SetupActivity.this, "Your Account is created Successfully", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
                         String msg = task.getException().getMessage();
+                        progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(SetupActivity.this, "Error occured:" + msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-
         }
     }
-
     private void SendUserToMainActivity()
     {
         Intent mainintent = new Intent(SetupActivity.this, MainActivity.class);

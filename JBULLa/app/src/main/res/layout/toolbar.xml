@@ -7,8 +7,8 @@
     android:layout_height="?actionBarSize"
     android:background="@color/colorPrimary"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    app:navigationIcon="@drawable/ic_launcher_foreground"
+    app:navigationIcon="@drawable/email2"
     app:title="jabiulla"
-    app:titleTextColor="#FFF">
+    app:titleTextColor="#FFFFFF">
     <!-- navigation button and title for the Toolbar-->
 </androidx.appcompat.widget.Toolbar>
