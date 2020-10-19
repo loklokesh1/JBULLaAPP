@@ -31,7 +31,8 @@
                 android:background="@color/colorPrimary"
                 app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
                 app:itemTextColor="@drawable/bottom_nav_icon_color_selector"
-                app:menu="@menu/bottom_navigation_menu">
+                app:menu="@menu/bottom_navigation_menu"
+                >
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
         </FrameLayout>
@@ -46,9 +47,10 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/drawable_navigation_menu"
-        app:headerLayout="@layout/nav_header_menu"
         >
 
     </com.google.android.material.navigation.NavigationView>
     <!-- *********************************** -->
+<!--    app:headerLayout="@layout/nav_header_menu"-->
+
 </androidx.drawerlayout.widget.DrawerLayout>

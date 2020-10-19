@@ -211,7 +211,7 @@ public class VerifyPhoneFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
-                                        Intent usernameintent = new Intent(getContext(), MainActivity.class);
+                                        Intent usernameintent = new Intent(getContext(), SetupActivity.class);
                                         usernameintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(usernameintent);
                                         getActivity().finish();
