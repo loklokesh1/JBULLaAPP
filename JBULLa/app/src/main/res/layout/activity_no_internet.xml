@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refreshlayoutnowifi"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".NoInternetActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/nointernet"
+        android:src="@drawable/nowifi"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="80dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nointernet"
+        android:layout_centerHorizontal="true"
+        android:text="No Internet Connection \nPlease connect your Modile data or Wifi\n\nPlease Connect Internet and then Refresh"
+        android:textColor="#333235"
+        android:textAlignment="center"
+        android:lineHeight="25dp"
+        />
+
+</RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

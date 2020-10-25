@@ -16,9 +16,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jabiullamahammad.sabol.UserRegister.RegisterActivity;
+import com.jabiullamahammad.sabol.UserRegister.SetupActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference UsersRef;
 
 
     @Override
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,6 +99,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //**************************
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null)
+        {
+            sendUserToLoginActivity();
+        }
+        else
+        {
+            CheckUser();
+        }
+    }
+
+    private void CheckUser()
+    {
+        final String current_user_id =mAuth.getCurrentUser().getUid();
+
+        UsersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.hasChild(current_user_id))
+                {
+                    sendUserToSetupActivity();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void sendUserToSetupActivity()
+    {
+        Intent setupintent = new Intent(MainActivity.this, SetupActivity.class);
+        setupintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setupintent);
+        finish();
+
+    }
+
     //------------------------------
     ///**************
     @Override

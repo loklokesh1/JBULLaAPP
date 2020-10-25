@@ -1,7 +1,14 @@
 package com.mahammadjabi.jbulla;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.network.ListNetworkRequest;
 import com.mahammadjabi.jbulla.UserRegister.RegisterActivity;
 import com.mahammadjabi.jbulla.UserRegister.SetupActivity;
 import com.squareup.picasso.Picasso;
@@ -39,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
+
     private CircleImageView NavProfileImage;
     private TextView NavProfileUserName;
 
@@ -46,12 +56,41 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference UsersRef;
 
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     String currentUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        swipeRefreshLayout = findViewById(R.id.refreshlayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh()
+            {
+                swipeRefreshLayout.setRefreshing(false);
+
+                boolean connection = isNetworkAvailable();
+
+                if (connection)
+                {
+
+                }
+                else
+                {
+                    Intent nointernet = new  Intent(MainActivity.this, NoInternetActivity.class);
+                    nointernet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(nointernet);
+                    finish();
+                }
+
+
+            }
+        });
+
+        swipeRefreshLayout.setColorSchemeColors(Color.BLUE);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
@@ -118,10 +157,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isNetworkAvailable()
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager)this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkinfo = connectivityManager.getActiveNetworkInfo();
+        return networkinfo != null;
+
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
+        ///////////
+        if (isConnected())
+        {
+//            Toast.makeText(getApplicationContext(), "Internet Connected", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Intent nointernet = new  Intent(MainActivity.this, NoInternetActivity.class);
+            nointernet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(nointernet);
+            finish();
+//            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+        /////////////
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
@@ -133,6 +193,19 @@ public class MainActivity extends AppCompatActivity {
         {
             CheckUserExistence();
         }
+    }
+
+    public boolean isConnected() {
+        boolean connected = false;
+        try {
+            ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo nInfo = cm.getActiveNetworkInfo();
+            connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+            return connected;
+        } catch (Exception e) {
+            Log.e("Connectivity Exception", e.getMessage());
+        }
+        return connected;
     }
 
     private void CheckUserExistence() {
@@ -192,4 +265,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
 }

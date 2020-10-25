@@ -35,7 +35,6 @@ public class SignInFragment extends Fragment {
     private Button btnlogin;
     private ProgressBar progess2;
     private FirebaseUser firebaseUser;
-    private  FirebaseAuth mAuth;
     private DatabaseReference UserRef;
 
 
@@ -105,6 +104,7 @@ public class SignInFragment extends Fragment {
                             Toast.makeText(getContext(), "Login successful!", Toast.LENGTH_LONG).show();
                             progess2.setVisibility(View.GONE);
                             Intent intent = new Intent(getContext(), MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             getActivity().finish();
 

@@ -23,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void setFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-        if(fragment instanceof ForgotPasswordFragment || fragment instanceof VerifyPhoneFragment)
+        if(fragment instanceof ForgotPasswordFragment || fragment instanceof VerifyPhoneFragment )
         {
             fragmentTransaction.addToBackStack(null);
         }
