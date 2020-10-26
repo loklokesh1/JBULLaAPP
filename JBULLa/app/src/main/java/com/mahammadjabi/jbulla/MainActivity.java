@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -70,27 +71,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh()
             {
-                swipeRefreshLayout.setRefreshing(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },2000);
 
                 boolean connection = isNetworkAvailable();
 
-                if (connection)
+                if (!connection)
                 {
-
-                }
-                else
-                {
+                    Toast.makeText(MainActivity.this, "Check your Internet Connection!!!", Toast.LENGTH_SHORT).show();
                     Intent nointernet = new  Intent(MainActivity.this, NoInternetActivity.class);
                     nointernet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(nointernet);
                     finish();
                 }
-
-
             }
         });
 
-        swipeRefreshLayout.setColorSchemeColors(Color.BLUE);
+        swipeRefreshLayout.setColorSchemeColors(Color.BLUE,
+                Color.GREEN,Color.BLACK,Color.RED);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
@@ -133,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(dataSnapshot.hasChild("profileimage")) {
                         String image = dataSnapshot.child("profileimage").getValue().toString();
-                        Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.ic_launcher_foreground).into(NavProfileImage);
+                        Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile1).into(NavProfileImage);
                     }
                     else {
                         Toast.makeText(MainActivity.this, "Profile name doesn't exist", Toast.LENGTH_SHORT).show();
@@ -146,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
