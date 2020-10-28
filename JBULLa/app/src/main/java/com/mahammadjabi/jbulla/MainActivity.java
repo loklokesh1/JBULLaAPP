@@ -25,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,12 +37,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.network.ListNetworkRequest;
 import com.mahammadjabi.jbulla.UserRegister.RegisterActivity;
 import com.mahammadjabi.jbulla.UserRegister.SetupActivity;
+import com.mahammadjabi.jbulla.userPosts.UserPostsActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    public BottomNavigationView bottomNavigation;
 
     private NavigationView navigationView;
     private DrawerLayout dLayout;
@@ -65,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bottomNavigation = findViewById(R.id.bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
         swipeRefreshLayout = findViewById(R.id.refreshlayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -130,11 +137,13 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
 
-                    if(dataSnapshot.hasChild("username")) {
+                    if(dataSnapshot.hasChild("username"))
+                    {
                         String fullname = dataSnapshot.child("username").getValue().toString();
                         NavProfileUserName.setText(fullname);
                     }
-                    if(dataSnapshot.hasChild("profileimage")) {
+                    if(dataSnapshot.hasChild("profileimage"))
+                    {
                         String image = dataSnapshot.child("profileimage").getValue().toString();
                         Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile1).into(NavProfileImage);
                     }
@@ -157,6 +166,38 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.navigation_search:
+                            Toast.makeText(MainActivity.this, "Search", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.navigation_post:
+                            SendUserToUserPostsActivity();
+                            return true;
+                        case R.id.navigation_notifications:
+                            Toast.makeText(MainActivity.this, "Notification", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.navigation_profile:
+                            Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
+                            return true;
+                    }
+                    return false;
+                }
+            };
+
+    private void SendUserToUserPostsActivity()
+    {
+        Intent postactivity = new Intent(MainActivity.this, UserPostsActivity.class);
+//        postactivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(postactivity);
     }
 
     private boolean isNetworkAvailable()

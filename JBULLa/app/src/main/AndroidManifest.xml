@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NoInternetActivity"/>
+        <activity android:name=".userPosts.UserPostsActivity"></activity>
+        <activity android:name=".NoInternetActivity" />
         <activity android:name=".UserRegister.SetupActivity" />
         <activity android:name=".UserRegister.RegisterActivity">
             <intent-filter>

@@ -109,7 +109,7 @@ public class SetupActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(SetupActivity.this, "Please select profile ijmage first", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SetupActivity.this, "Please select profile image first", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
