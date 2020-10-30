@@ -28,6 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/all_users_post"
+                android:layout_width="match_parent"
+                android:layout_height="610dp"
+                android:layout_marginTop="?actionBarSize" />
+
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"

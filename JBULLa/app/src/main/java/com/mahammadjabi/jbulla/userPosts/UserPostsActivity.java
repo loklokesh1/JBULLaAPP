@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -246,6 +248,7 @@ public class UserPostsActivity extends AppCompatActivity {
     {
 
         loadingBar.setMessage("Uploading post...");
+        loadingBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
         loadingBar.show();
 
 //         postdescription = PostDescription.getText().toString();
