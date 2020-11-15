@@ -36,9 +36,11 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -98,12 +100,23 @@ public class UserPostsActivity extends AppCompatActivity {
             {
 //                CropImage.activity()
 //                        .setGuidelines(CropImageView.Guidelines.ON)
-//                        .setAspectRatio(1,1)
-//                        .start(UserPostsActivity.this);
+//                        .setAspectRatio(1,1
+//                        .start(UserPostsActivity.this,Gallery_Pick);
                 Intent galleryIntent = new Intent();
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent,Gallery_Pick);
+
+//                Intent galleryintent = new Intent();
+//                galleryintent.setAction(Intent.ACTION_GET_CONTENT);
+//                galleryintent.setType("image/*");
+////                galleryintent.putExtra("outputX",96);
+////                galleryintent.putExtra("outputY",96);
+////                galleryintent.putExtra("aspectX",1);
+////                galleryintent.putExtra("aspectY",1);
+////                galleryintent.putExtra("scale",true);
+////                galleryintent.putExtra("return-data",true);
+//                startActivityForResult(galleryintent,Gallery_Pick);
 
 
             }
@@ -130,6 +143,7 @@ public class UserPostsActivity extends AppCompatActivity {
 
             }
         });
+
 
 
         UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
@@ -248,7 +262,7 @@ public class UserPostsActivity extends AppCompatActivity {
     {
 
         loadingBar.setMessage("Uploading post...");
-        loadingBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+        loadingBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         loadingBar.show();
 
 //         postdescription = PostDescription.getText().toString();
@@ -296,7 +310,8 @@ public class UserPostsActivity extends AppCompatActivity {
     {
 
         Calendar calFordDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy", Locale.ENGLISH);
         saveCurrentDate = currentDate.format(calFordDate.getTime());
 
         Calendar calFordTime = Calendar.getInstance();

@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
-    android:background="@color/colorPrimary"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    app:navigationIcon="@drawable/email2"
-    app:title="jabiulla"
-    app:titleTextColor="#FFFFFF">
-    <!-- navigation button and title for the Toolbar-->
-</androidx.appcompat.widget.Toolbar>
+    android:orientation="vertical"
+    tools:content=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        app:navigationIcon="@drawable/email2"
+        android:layout_height="?actionBarSize"
+        android:background="@android:color/white"
+        app:title="Bol"
+        app:titleTextColor="@android:color/white"
+        android:elevation="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="?actionBarSize"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="6dp"
+                android:src="@drawable/jblogo"/>
+
+<!--            <ImageView-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_width="110dp"-->
+<!--                android:padding="6dp"-->
+<!--                android:src="@drawable/text_logo"-->
+
+<!--                />-->
+
+        </LinearLayout>
+
+        <!-- navigation button and title for the Toolbar-->
+    </androidx.appcompat.widget.Toolbar>
+
+
+</LinearLayout>
+

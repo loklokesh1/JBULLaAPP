@@ -107,30 +107,6 @@ public class MainActivity extends AppCompatActivity {
         {
             sendUserToLoginActivity();
         }
-        else
-        {
-            CheckUser();
-        }
-    }
-
-    private void CheckUser()
-    {
-        final String current_user_id =mAuth.getCurrentUser().getUid();
-
-        UsersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.hasChild(current_user_id))
-                {
-                    sendUserToSetupActivity();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
 

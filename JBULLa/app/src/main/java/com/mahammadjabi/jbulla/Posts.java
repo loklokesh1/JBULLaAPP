@@ -33,7 +33,7 @@ public class Posts
     }
 
     public void setTime(String time) {
-        this.time = time;
+        this.time = " "+time;
     }
 
     public String getDate() {
@@ -41,7 +41,7 @@ public class Posts
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = " "+date;
     }
 
     public String getPostimage() {
@@ -57,7 +57,7 @@ public class Posts
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = " "+username;
     }
 
     public String getDescription() {
@@ -65,7 +65,7 @@ public class Posts
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = " "+description;
     }
 
     public String getProfileimage() {
