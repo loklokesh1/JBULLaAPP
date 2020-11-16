@@ -11,12 +11,12 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        app:navigationIcon="@drawable/email2"
+        app:navigationIcon="@drawable/menuicon"
         android:layout_height="?actionBarSize"
         android:background="@android:color/white"
         app:title="Bol"
         app:titleTextColor="@android:color/white"
-        android:elevation="5dp">
+        android:elevation="20dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

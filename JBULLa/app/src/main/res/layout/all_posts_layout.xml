@@ -9,8 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="4dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         >
 
@@ -20,24 +18,39 @@
             android:layout_marginTop="1dp"
             android:padding="5dp"
             android:orientation="horizontal">
-
+<!--            <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                android:id="@+id/shimmer_view1"-->
+<!--                app:shimmer_auto_start="true"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--             >-->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/post_profile_image"
                 android:layout_width="60dp"
+                android:padding="1dp"
                 android:layout_height="60dp"
                 android:src="@drawable/profile"
                 android:scaleType="centerCrop"
+                app:civ_border_width="2dp"
                 app:civ_border_color="@color/bottomnavColor"
                 android:layout_marginStart="4dp"/>
+<!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+<!--                <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                    android:id="@+id/shimmer_view2"-->
+<!--                    app:shimmer_auto_start="true"-->
+<!--                    android:layout_marginLeft="4dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    >-->
                 <TextView
                     android:id="@+id/post_user_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="user name"
                     android:layout_marginStart="7dp"
@@ -47,6 +60,10 @@
                     android:textStyle="bold"
                     android:textColor="@android:color/black"/>
 
+
+
+<!--                </com.facebook.shimmer.ShimmerFrameLayout>-->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,6 +71,13 @@
                     android:layout_marginStart="5dp"
                     android:padding="2dp">
 
+<!--                    <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                        android:id="@+id/shimmer_view3"-->
+<!--                        app:shimmer_auto_start="true"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_marginLeft="6dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        >-->
                     <TextView
                         android:id="@+id/text"
                         android:layout_width="wrap_content"
@@ -63,7 +87,15 @@
                         android:textColor="@android:color/darker_gray"
                         android:textSize="13sp"
                         android:textStyle="bold" />
+<!--                    </com.facebook.shimmer.ShimmerFrameLayout>-->
 
+<!--                    <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                        android:id="@+id/shimmer_view4"-->
+<!--                        app:shimmer_auto_start="true"-->
+<!--                        android:layout_marginLeft="6dp"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        >-->
 
                     <TextView
                         android:id="@+id/post_date"
@@ -75,6 +107,14 @@
                         android:lines="1"
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />
+<!--                    </com.facebook.shimmer.ShimmerFrameLayout>-->
+<!--                    <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                        android:id="@+id/shimmer_view5"-->
+<!--                        app:shimmer_auto_start="true"-->
+<!--                        android:layout_marginLeft="4dp"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        >-->
 
                     <TextView
                         android:id="@+id/post_time"
@@ -86,30 +126,58 @@
                         android:padding="4dp"
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />
-
+<!--                    </com.facebook.shimmer.ShimmerFrameLayout>-->
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/menudetails"
+                        android:padding="2dp"
+                        />
                 </LinearLayout>
+
+
             </LinearLayout>
+
         </LinearLayout>
 
+
+<!--        <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--        android:id="@+id/shimmer_view6"-->
+<!--        android:layout_width="match_parent"-->
+<!--        app:shimmer_auto_start="true"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
         <TextView
             android:id="@+id/post_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Post description.."
             android:layout_marginTop="6dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
             android:padding="3dp"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
+<!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+<!--        <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--        android:id="@+id/shimmer_view7"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:shimmer_auto_start="true"-->
+<!--        android:orientation="vertical">-->
 
         <ImageView
             android:id="@+id/post_image"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:layout_margin="3dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"/>
+<!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,14 +185,29 @@
             android:orientation="horizontal"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
+<!--            <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                android:id="@+id/shimmer_view8"-->
+<!--                app:shimmer_auto_start="true"-->
+<!--                android:layout_marginRight="3dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                >-->
 
             <ImageButton
                 android:id="@+id/like_button"
                 android:layout_width="30dp"
                 android:layout_height="35dp"
+                android:backgroundTint="@android:color/white"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/email2"/>
+                android:src="@drawable/likeicon"/>
+<!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
 
+<!--            <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                android:id="@+id/shimmer_view9"-->
+<!--                app:shimmer_auto_start="true"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                >-->
             <TextView
                 android:id="@+id/display_no_of_likes"
                 android:layout_width="wrap_content"
@@ -135,18 +218,36 @@
                 android:textColor="@android:color/black"
                 android:textSize="14dp"
                 android:textStyle="bold"/>
+<!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
 
+<!--            <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                android:id="@+id/shimmer_view10"-->
+<!--                app:shimmer_auto_start="true"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                >-->
             <ImageButton
                 android:id="@+id/comment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="150dp"
                 android:layout_gravity="center_vertical"
-                android:baselineAlignBottom="false"
-                android:src="@drawable/email2"/>
+                android:backgroundTint="@android:color/white"
+                android:baselineAlignBottom="true"
+                android:src="@drawable/commentsicon"/>
+<!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
+
 
 
         </LinearLayout>
-
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="0dp"-->
+<!--            android:padding="0dp"-->
+<!--            android:elevation="4dp"-->
+<!--            android:text="____________________________________________________________"-->
+<!--            />-->
     </LinearLayout>
 </RelativeLayout>

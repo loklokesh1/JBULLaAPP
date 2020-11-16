@@ -22,17 +22,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp"
+                android:layout_margin="4dp"
                 android:orientation="vertical">
 <!--                android:background="@drawable/post_border"-->
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:orientation="horizontal"
-                    android:background="#F1F2EF"
+                    android:background="#E9EAEB"
                     android:padding="5dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -107,9 +106,10 @@
                 <ImageView
                     android:id="@+id/click_post_image"
                     android:layout_width="match_parent"
-                    android:layout_height="325dp"
+                    android:layout_height="350dp"
                     android:layout_margin="3dp"
                     android:src="@drawable/post"
+                    android:background="@drawable/post_border"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside" />
                 <EditText

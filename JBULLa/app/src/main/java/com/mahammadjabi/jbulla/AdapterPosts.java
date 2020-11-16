@@ -1,5 +1,6 @@
 package com.mahammadjabi.jbulla;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.Shimmer;
+import com.facebook.shimmer.ShimmerDrawable;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.core.Context;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -19,6 +24,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterPosts extends RecyclerView.Adapter {
 
     List<Posts> postsList;
+
+    boolean showShimmer = true;
+    Context context;
+
+
 
     public AdapterPosts(List<Posts> postsList) {
         this.postsList = postsList;
@@ -41,6 +51,17 @@ public class AdapterPosts extends RecyclerView.Adapter {
         ViewHolderClass viewHolderClass = (ViewHolderClass)holder;
 
         Posts posts = postsList.get(position);
+//
+//        Shimmer shimmer = new Shimmer.ColorHighlightBuilder()
+//                .setBaseColor(Color.parseColor("#F3F3F#"))
+//                .setBaseAlpha(1)
+//                .setHighlightColor(Color.parseColor("#E7E7E7"))
+//                .setDropoff(50)
+//                .build();
+//
+//        ShimmerDrawable shimmerDrawable = new ShimmerDrawable();
+//
+//        shimmerDrawable.setShimmer(shimmer);
 
         viewHolderClass.date1.setText(posts.getDate());
         viewHolderClass.time1.setText(posts.getTime());

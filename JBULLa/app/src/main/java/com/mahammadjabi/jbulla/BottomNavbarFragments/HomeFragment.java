@@ -1,10 +1,6 @@
 package com.mahammadjabi.jbulla.BottomNavbarFragments;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,21 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mahammadjabi.jbulla.AdapterPosts;
-import com.mahammadjabi.jbulla.MainActivity;
-import com.mahammadjabi.jbulla.NoInternetActivity;
+
 import com.mahammadjabi.jbulla.Posts;
 import com.mahammadjabi.jbulla.R;
 
@@ -40,19 +36,25 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private RecyclerView stories,all_users_post;
+    private RecyclerView all_users_post;
+
+    private ShimmerFrameLayout shimmerFrameLayout1,shimmerFrameLayout2,shimmerFrameLayout3
+            ,shimmerFrameLayout4,shimmerFrameLayout5,shimmerFrameLayout6,shimmerFrameLayout7
+            ,shimmerFrameLayout8,shimmerFrameLayout9,shimmerFrameLayout10;
+
     private SwipeRefreshLayout swipeRefreshLayout;
 
 
-    private DatabaseReference UsersRef,PostsRef;
-    String currentUserID;
+    private DatabaseReference PostsRef;
+
+
 
 
     List<Posts> posts;
     AdapterPosts adapterPosts;
 
-    private String mParam1;
-    private String mParam2;
+    Handler handler;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -70,10 +72,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -86,6 +85,32 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
+
+//        shimmerFrameLayout1 = view.findViewById(R.id.shimmer_view1);
+//        shimmerFrameLayout2 = view.findViewById(R.id.shimmer_view2);
+//        shimmerFrameLayout3 = view.findViewById(R.id.shimmer_view3);
+//        shimmerFrameLayout4 = view.findViewById(R.id.shimmer_view4);
+//        shimmerFrameLayout5 = view.findViewById(R.id.shimmer_view5);
+//        shimmerFrameLayout6 = view.findViewById(R.id.shimmer_view6);
+//        shimmerFrameLayout7 = view.findViewById(R.id.shimmer_view7);
+//        shimmerFrameLayout8 = view.findViewById(R.id.shimmer_view8);
+//        shimmerFrameLayout9 = view.findViewById(R.id.shimmer_view9);
+//        shimmerFrameLayout10 = view.findViewById(R.id.shimmer_view10);
+
+//        shimmerFrameLayout1.startShimmer();
+//        shimmerFrameLayout2.startShimmer();
+//        shimmerFrameLayout3.startShimmer();
+//        shimmerFrameLayout1.startShimmer();
+//        shimmerFrameLayout4.startShimmer();
+//        shimmerFrameLayout5.startShimmer();
+//        shimmerFrameLayout6.startShimmer();
+//        shimmerFrameLayout7.startShimmer();
+//        shimmerFrameLayout8.startShimmer();
+//        shimmerFrameLayout9.startShimmer();
+//        shimmerFrameLayout10.startShimmer();
 
 //        swipeRefreshLayout =view.findViewById(R.id.refreshlayout);
 //        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -117,7 +142,7 @@ public class HomeFragment extends Fragment {
 //                Color.GREEN,Color.BLACK,Color.RED);
 
 
-        currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         all_users_post = (RecyclerView)view.findViewById(R.id.all_users_post);
         all_users_post.setHasFixedSize(true);
@@ -141,10 +166,39 @@ public class HomeFragment extends Fragment {
                 for(DataSnapshot ds:dataSnapshot.getChildren())
                 {
                     Posts data = ds.getValue(Posts.class);
-                    posts.add(data);
+                    if (data != null)
+                    {
+
+                        posts.add(data);
+//                        shimmerFrameLayout1.stopShimmer();
+//                        shimmerFrameLayout1.setVisibility(View.GONE);
+//                        shimmerFrameLayout2.stopShimmer();
+//                        shimmerFrameLayout2.setVisibility(View.GONE);
+//                        shimmerFrameLayout3.stopShimmer();
+//                        shimmerFrameLayout3.setVisibility(View.GONE);
+//                        shimmerFrameLayout4.stopShimmer();
+//                        shimmerFrameLayout4.setVisibility(View.GONE);
+//                        shimmerFrameLayout5.stopShimmer();
+//                        shimmerFrameLayout5.setVisibility(View.GONE);
+//                        shimmerFrameLayout6.stopShimmer();
+//                        shimmerFrameLayout6.setVisibility(View.GONE);
+//                        shimmerFrameLayout7.stopShimmer();
+//                        shimmerFrameLayout7.setVisibility(View.GONE);
+//                        shimmerFrameLayout8.stopShimmer();
+//                        shimmerFrameLayout8.setVisibility(View.GONE);
+//                        shimmerFrameLayout9.stopShimmer();
+//                        shimmerFrameLayout9.setVisibility(View.GONE);
+//                        shimmerFrameLayout10.stopShimmer();
+//                        shimmerFrameLayout10.setVisibility(View.GONE);
+
+
+                    }
+
                 }
                 adapterPosts = new AdapterPosts(posts);
                 all_users_post.setAdapter(adapterPosts);
+
+
 
             }
 
@@ -158,9 +212,20 @@ public class HomeFragment extends Fragment {
 
 
 
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
 
-
+//
+//
+//            }
+//        },500);
+//
+//
+//
+//
     }
+
 
 //    private boolean isNetworkAvailable()
 //    {
