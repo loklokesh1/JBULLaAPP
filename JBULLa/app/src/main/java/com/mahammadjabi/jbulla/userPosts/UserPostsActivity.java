@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.mahammadjabi.jbulla.BottomNavbarFragments.HomeFragment;
 import com.mahammadjabi.jbulla.MainActivity;
 import com.mahammadjabi.jbulla.R;
 import com.squareup.picasso.Picasso;
@@ -189,73 +190,7 @@ public class UserPostsActivity extends AppCompatActivity {
            ImageUri = data.getData();
            SelectPostImage.setImageURI(ImageUri);
         }
-//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-//        {
-//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-//
-//            if (resultCode == RESULT_OK)
-//            {
-//                Uri resultUrl = result.getUri();
-//
-////                progressDialogShareImage.setTitle("Please wait...");
-//                loadingBar.setMessage("Loading Image ...");
-//                loadingBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//                loadingBar.show();
-//
-//                Calendar calFordDate = Calendar.getInstance();
-//                SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
-//                saveCurrentDate = currentDate.format(calFordDate.getTime());
-//
-//                Calendar calFordTime = Calendar.getInstance();
-//                SimpleDateFormat currentTime = new SimpleDateFormat("HH:mn");
-//                saveCurrentTime = currentTime.format(calFordDate.getTime());
-//
-//                postRandomName = saveCurrentDate + saveCurrentTime;
-//
-//                StorageReference filePath = UserPostImageRef.child(currentUserID + postRandomName +".jpg");
-//
-//                filePath.putFile(resultUrl).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot)
-//                    {
-//                        final Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
-//                        firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                            @Override
-//                            public void onSuccess(Uri uri)
-//                            {
-//                                final String downloadUrl = uri.toString();
-//                                UsersRef.child("post").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task)
-//                                    {
-//                                        if (task.isSuccessful())
-//                                        {
-////                                            Toast.makeText(UserPostsActivity.this, "Post Shared Successfully", Toast.LENGTH_SHORT).show();
-////                                            Intent mainintent = new Intent(UserPostsActivity.this,MainActivity.class);
-////                                            mainintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                                            startActivity(mainintent);
-////                                            finish();
-//                                            loadingBar.dismiss();
-//                                        }
-//                                        else
-//                                        {
-//                                            String message = task.getException().getMessage();
-//                                            Toast.makeText(UserPostsActivity.this, "Error Occured: "+ message, Toast.LENGTH_SHORT).show();
-//                                            loadingBar.dismiss();
-//                                        }
-//                                    }
-//                                });
-//                            }
-//                        });
-//                    }
-//                });
-//            }
-//            else
-//            {
-//                Toast.makeText(this,  "Error Occured: Image can not be croped Try Again", Toast.LENGTH_SHORT).show();
-//                loadingBar.dismiss();
-//            }
-//        }
+
     }
 
     private void ShareUserPost()
@@ -265,45 +200,9 @@ public class UserPostsActivity extends AppCompatActivity {
         loadingBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         loadingBar.show();
 
-//         postdescription = PostDescription.getText().toString();
-//
-//        if (ImageUri == null)
-//        {
-//            Toast.makeText(this, "please select post image", Toast.LENGTH_SHORT).show();
-//        }
-//        else if (TextUtils.isEmpty(postdescription))
-//        {
-//            PostDescription.setError("Write something about your post");
-//        }
-//        else
-     //   {
             StoringImageToFirebaseStorage();
 //
-//            HashMap postsMap = new HashMap();
-//            postsMap.put("postdescription",postdescription);
-//            postsMap.put("time",saveCurrentTime);
-//            postsMap.put("date",saveCurrentDate);
 //
-//            UsersRef.child(currentUserID + postRandomName).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
-//                @Override
-//                public void onComplete(@NonNull Task task) {
-//                    if (task.isSuccessful())
-//                    {
-//                        progressDialogShareImage.setMessage("Sharing post ...");
-//                        progressDialogShareImage.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//                        progressDialogShareImage.show();
-//                        SendUserToMainActivity();
-//                        Toast.makeText(UserPostsActivity.this, "Post Shared Successfully", Toast.LENGTH_SHORT).show();
-//                    }
-//                    else
-//                    {
-//                        String msg = task.getException().getMessage();
-//                        progressDialogShareImage.dismiss();
-//                        Toast.makeText(UserPostsActivity.this, "Error occured:" + msg, Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
-       // }
     }
 
     private void StoringImageToFirebaseStorage()
@@ -411,4 +310,12 @@ public class UserPostsActivity extends AppCompatActivity {
         startActivity(mainintent);
         finish();
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent homeintent = new Intent(UserPostsActivity.this, MainActivity.class);
+//        startActivity(homeintent);
+//        finish();
+//    }
 }

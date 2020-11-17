@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -38,23 +39,14 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView all_users_post;
 
-    private ShimmerFrameLayout shimmerFrameLayout1,shimmerFrameLayout2,shimmerFrameLayout3
-            ,shimmerFrameLayout4,shimmerFrameLayout5,shimmerFrameLayout6,shimmerFrameLayout7
-            ,shimmerFrameLayout8,shimmerFrameLayout9,shimmerFrameLayout10;
-
     private SwipeRefreshLayout swipeRefreshLayout;
 
-
     private DatabaseReference PostsRef;
-
-
-
 
     List<Posts> posts;
     AdapterPosts adapterPosts;
 
     Handler handler;
-
 
     public HomeFragment() {
         // Required empty public constructor
@@ -86,32 +78,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
-
-//        shimmerFrameLayout1 = view.findViewById(R.id.shimmer_view1);
-//        shimmerFrameLayout2 = view.findViewById(R.id.shimmer_view2);
-//        shimmerFrameLayout3 = view.findViewById(R.id.shimmer_view3);
-//        shimmerFrameLayout4 = view.findViewById(R.id.shimmer_view4);
-//        shimmerFrameLayout5 = view.findViewById(R.id.shimmer_view5);
-//        shimmerFrameLayout6 = view.findViewById(R.id.shimmer_view6);
-//        shimmerFrameLayout7 = view.findViewById(R.id.shimmer_view7);
-//        shimmerFrameLayout8 = view.findViewById(R.id.shimmer_view8);
-//        shimmerFrameLayout9 = view.findViewById(R.id.shimmer_view9);
-//        shimmerFrameLayout10 = view.findViewById(R.id.shimmer_view10);
-
-//        shimmerFrameLayout1.startShimmer();
-//        shimmerFrameLayout2.startShimmer();
-//        shimmerFrameLayout3.startShimmer();
-//        shimmerFrameLayout1.startShimmer();
-//        shimmerFrameLayout4.startShimmer();
-//        shimmerFrameLayout5.startShimmer();
-//        shimmerFrameLayout6.startShimmer();
-//        shimmerFrameLayout7.startShimmer();
-//        shimmerFrameLayout8.startShimmer();
-//        shimmerFrameLayout9.startShimmer();
-//        shimmerFrameLayout10.startShimmer();
-
 //        swipeRefreshLayout =view.findViewById(R.id.refreshlayout);
 //        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -142,17 +108,17 @@ public class HomeFragment extends Fragment {
 //                Color.GREEN,Color.BLACK,Color.RED);
 
 
-
-
-        all_users_post = (RecyclerView)view.findViewById(R.id.all_users_post);
+        all_users_post = (RecyclerView) view.findViewById(R.id.all_users_post);
         all_users_post.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
+//        linearLayoutManager.setStackFromEnd(true);
         all_users_post.setLayoutManager(linearLayoutManager);
+
 //        all_users_post.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
 
-        if (linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0){}
+//        if (linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+//        }
 //      if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == posts.size()-1){}
 
         posts = new ArrayList<>();
@@ -161,71 +127,35 @@ public class HomeFragment extends Fragment {
 
         PostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                for(DataSnapshot ds:dataSnapshot.getChildren())
-                {
-                    Posts data = ds.getValue(Posts.class);
-                    if (data != null)
-                    {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    final Posts data = ds.getValue(Posts.class);
 
-                        posts.add(data);
-//                        shimmerFrameLayout1.stopShimmer();
-//                        shimmerFrameLayout1.setVisibility(View.GONE);
-//                        shimmerFrameLayout2.stopShimmer();
-//                        shimmerFrameLayout2.setVisibility(View.GONE);
-//                        shimmerFrameLayout3.stopShimmer();
-//                        shimmerFrameLayout3.setVisibility(View.GONE);
-//                        shimmerFrameLayout4.stopShimmer();
-//                        shimmerFrameLayout4.setVisibility(View.GONE);
-//                        shimmerFrameLayout5.stopShimmer();
-//                        shimmerFrameLayout5.setVisibility(View.GONE);
-//                        shimmerFrameLayout6.stopShimmer();
-//                        shimmerFrameLayout6.setVisibility(View.GONE);
-//                        shimmerFrameLayout7.stopShimmer();
-//                        shimmerFrameLayout7.setVisibility(View.GONE);
-//                        shimmerFrameLayout8.stopShimmer();
-//                        shimmerFrameLayout8.setVisibility(View.GONE);
-//                        shimmerFrameLayout9.stopShimmer();
-//                        shimmerFrameLayout9.setVisibility(View.GONE);
-//                        shimmerFrameLayout10.stopShimmer();
-//                        shimmerFrameLayout10.setVisibility(View.GONE);
-
-
-                    }
+//                    posts.add(data);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            posts.add(data);
+                            adapterPosts.notifyDataSetChanged();
+                            adapterPosts.showShimmer=false;
+                        }
+                    },500);
 
                 }
                 adapterPosts = new AdapterPosts(posts);
                 all_users_post.setAdapter(adapterPosts);
-
-
+                all_users_post.invalidate();
 
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
+            public void onCancelled(@NonNull DatabaseError error) {
 
 
             }
         });
-
-
-
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-
-//
-//
-//            }
-//        },500);
-//
-//
-//
-//
     }
-
 
 //    private boolean isNetworkAvailable()
 //    {
@@ -236,7 +166,15 @@ public class HomeFragment extends Fragment {
 //    }
 
 
-
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//    }
 }
 //
 //<!--<?xml version="1.0" encoding="utf-8"?>-->

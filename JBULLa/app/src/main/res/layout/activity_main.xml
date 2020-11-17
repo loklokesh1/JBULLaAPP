@@ -15,10 +15,13 @@
 
             <!-- include your toolbar layout -->
 
+
             <include layout="@layout/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <!--  Let's add fragment  -->
+
+
 
             <FrameLayout
                 android:id="@+id/container"

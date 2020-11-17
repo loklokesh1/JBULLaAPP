@@ -6,4 +6,5 @@
     <color name="statusbar">#DEDDDD</color>
     <color name="bottomnavColor">#0040ff</color>
     <color name="mainBackground">#d7d7d7</color>
+    <color name="backgroundshimmer">#dddddd</color>
 </resources>

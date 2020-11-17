@@ -15,8 +15,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,16 +27,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -55,13 +46,12 @@ import com.mahammadjabi.jbulla.UserRegister.SetupActivity;
 import com.mahammadjabi.jbulla.userPosts.UserPostsActivity;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     public BottomNavigationView bottomNavigation;
 
@@ -77,16 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef,PostsRef;
-    private FirebaseRecyclerOptions<Posts> options;
-//    private FirebaseRecyclerAdapter<Posts, PostsViewHolder> adapter;
+
 
 
 
     String currentUserID;
-    private Fragment frameLayout;
-    private List<Fragment>  fragmentList;
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -94,54 +79,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        openFragment(new HomeFragment());
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-//
-//
-//        fragmentList = new ArrayList<>();
-//        fragmentList.add(new HomeFragment());
-//        fragmentList.add(new SearchFragment());
-//        fragmentList.add(new NotificationFragment());
-//        fragmentList.add(new NotificationFragment());
-//        fragmentList.add(new ProfileFragment());
-//
-//
-//        tabLayout = findViewById(R.id.tablayout);
-//        tabLayout.getTabAt(2).getIcon().setTintList(ColorStateList.valueOf(getResources().getColor(R.color.common_google_signin_btn_text_dark_focused)));
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//            @Override
-//
-//            public void onTabSelected(TabLayout.Tab tab)
-//            {
-//                if (tab.getPosition() != 2)
-//                {
-//                    tab.getIcon().setTintList(ColorStateList.valueOf(getResources().getColor(R.color.common_google_signin_btn_text_dark_focused)));
-//                    setFragment(tab.getPosition());
-//                }
-//            }
-//
-//            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab)
-//            {
-//                if (tab.getPosition() != 2)
-//                {
-//                    tab.getIcon().setTintList(ColorStateList.valueOf(Color.parseColor("#789654")));
-//                }
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-//
-//        tabLayout.getTabAt(0).getIcon().setTintList(ColorStateList.valueOf(getResources().getColor(R.color.common_google_signin_btn_text_dark_focused)));
-////        setFragment(0);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
@@ -162,12 +103,8 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.navigation);
         View navView = navigationView.inflateHeaderView(R.layout.nav_header_menu);
         View view;
-//        postList = (RecyclerView) findViewById(R.id.all_users_post);
-//        postList.setHasFixedSize(true);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setReverseLayout(true);
-//        linearLayoutManager.setStackFromEnd(true);
-//        postList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
+        openFragment(new HomeFragment());
 
 
         NavProfileImage = (CircleImageView) navView.findViewById(R.id.nav_profile_image);
@@ -217,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        DisplayAllUserPosts();
     }
 
     private boolean openFragment(Fragment fragment)
@@ -234,80 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-//    private void DisplayAllUserPosts()
-//    {
-//        options = new FirebaseRecyclerOptions.Builder<Posts>()
-//                .setQuery(PostsRef,Posts.class).build();
-//
-//        adapter = new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
-//            @Override
-//            protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull Posts model)
-//            {
-//                holder.setProfileimage(getApplicationContext(),model.getProfileimage());
-//                holder.setUsername(model.getUsername());
-//                holder.setTime(model.getTime());
-//                holder.setDate(model.getDate());
-//                holder.setDescription(model.getDescription());
-//                holder.setPostimage(getApplicationContext(),model.getPostimage());
-//
-//            }
-//
-//            @NonNull
-//            @Override
-//            public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-//            {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_user_posts,parent,false);
-//
-//                return new PostsViewHolder(view);
-//            }
-//        };
-
-
-  //  }
-
-//    public static class PostsViewHolder extends RecyclerView.ViewHolder
-//    {
-//
-//        View mView;
-//
-//        public PostsViewHolder(@NonNull View itemView)
-//        {
-//            super(itemView);
-//            mView = itemView;
-//        }
-//        public void setDate(String date)
-//        {
-//            TextView date1 = (TextView)mView.findViewById(R.id.post_date);
-//            date1.setText("  "+date);
-//        }
-//        public void setPostimage(Context ctx,String postimage)
-//        {
-//            ImageView UserPostImage = mView.findViewById(R.id.post_image);
-//            Picasso.with(ctx).load(postimage).into(UserPostImage);
-//        }
-//        public void setProfileimage(Context ctx,String profileimage)
-//        {
-//            CircleImageView UserProfileImage = mView.findViewById(R.id.post_image);
-//            Picasso.with(ctx).load(profileimage).into(UserProfileImage);
-//        }
-//        public void setUsername(String username)
-//        {
-//            TextView UserUserName = (TextView)mView.findViewById(R.id.post_date);
-//            UserUserName.setText("  "+username);
-//        }
-//        public void setTime(String time)
-//        {
-//            TextView time1 = (TextView)mView.findViewById(R.id.post_date);
-//            time1.setText("  "+time);
-//        }
-//        public void setDescription(String description)
-//        {
-//            TextView postdescription1 = mView.findViewById(R.id.postdescription);
-//            postdescription1.setText(description);
-//        }
-//    }
-
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -315,24 +177,25 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.navigation_home:
 //                            fragment = new HomeFragment();
+
                             openFragment(HomeFragment.newInstance("", ""));
 //                            SendUserToHomeFragment();
-                            Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
                             return true;
                         case R.id.navigation_search:
                             openFragment(SearchFragment.newInstance("", ""));
-                            Toast.makeText(MainActivity.this, "Search", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "Search", Toast.LENGTH_SHORT).show();
                             return true;
                         case R.id.navigation_post:
                             SendUserToUserPostsActivity();
                             return true;
                         case R.id.navigation_notifications:
                             openFragment(NotificationFragment.newInstance("", ""));
-                            Toast.makeText(MainActivity.this, "Notification", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "Notification", Toast.LENGTH_SHORT).show();
                             return true;
                         case R.id.navigation_profile:
                             openFragment(ProfileFragment.newInstance("", ""));
-                            Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                             return true;
                     }
                     return false;
@@ -377,14 +240,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean isConnected() {
+    public boolean isConnected()
+    {
         boolean connected = false;
-        try {
+        try
+        {
             ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo nInfo = cm.getActiveNetworkInfo();
             connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
             return connected;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             Log.e("Connectivity Exception", e.getMessage());
         }
         return connected;
@@ -408,17 +275,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void sendUserToSetupActivity() {
+    private void sendUserToSetupActivity()
+    {
         Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
         startActivity(setupIntent);
-
     }
-    private void SendUserToLoginActivity() {
+    private void SendUserToLoginActivity()
+    {
         Intent loginIntent = new Intent(MainActivity.this, RegisterActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
         finish();
-
     }
 
     @Override
