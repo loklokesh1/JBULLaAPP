@@ -37,22 +37,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nointernet"
         android:layout_centerHorizontal="true"
-        android:text="No Internet Connection \nPlease connect your Modile data or Wifi\n\nPlease Connect Internet and then Refresh"
-        android:textColor="#333235"
+        android:text="No Internet Connection \nPlease connect your Modile data or Wifi\nPlease Connect Internet and then Refresh"
+        android:textColor="#951E15"
         android:textAlignment="center"
         android:lineHeight="25dp"
         />
 
     <Button
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/warring"
         android:background="@drawable/btn"
         android:text="Try Again"
+        android:drawableLeft="@drawable/reseticon"
         android:id="@+id/tryagain"
         android:textAllCaps="false"
         android:layout_marginTop="12dp"
-        android:layout_marginLeft="92dp"
+        android:layout_marginLeft="69dp"
+        android:gravity="center"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
 

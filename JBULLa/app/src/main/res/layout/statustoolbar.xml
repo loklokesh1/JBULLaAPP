@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:content=".ShowStatus.StatusActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/statustoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@android:color/white"
+        app:title="Bol"
+        app:titleTextColor="@android:color/white"
+        android:elevation="20dp">
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+</LinearLayout>
+

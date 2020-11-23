@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowStatus.StatusActivity">
+
+    <include layout="@layout/statustoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?actionBarSize"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+<!--                <ProgressBar-->
+<!--                    android:id="@+id/progressbarhome"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:visibility="visible"-->
+<!--                    />-->
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/all_users_stories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    />
+
+            </FrameLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/statusfloatingbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="10dp"
+            android:src="@drawable/cameraicon"
+            app:fabSize="normal"
+            app:useCompatPadding="true"
+            />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/statusfloatingbuttonpen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="10dp"
+        android:src="@drawable/penicon"
+        app:fabSize="normal"
+        app:useCompatPadding="true"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

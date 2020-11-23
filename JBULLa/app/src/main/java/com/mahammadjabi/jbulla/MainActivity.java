@@ -1,10 +1,10 @@
 package com.mahammadjabi.jbulla;
 
+
+import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -12,24 +12,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,23 +40,28 @@ import com.mahammadjabi.jbulla.BottomNavbarFragments.HomeFragment;
 import com.mahammadjabi.jbulla.BottomNavbarFragments.NotificationFragment;
 import com.mahammadjabi.jbulla.BottomNavbarFragments.ProfileFragment;
 import com.mahammadjabi.jbulla.BottomNavbarFragments.SearchFragment;
+import com.mahammadjabi.jbulla.NetworkCheck.MyService;
 import com.mahammadjabi.jbulla.UserRegister.RegisterActivity;
 import com.mahammadjabi.jbulla.UserRegister.SetupActivity;
+import com.mahammadjabi.jbulla.databinding.ActivityMainBinding;
 import com.mahammadjabi.jbulla.userPosts.UserPostsActivity;
 import com.squareup.picasso.Picasso;
 
-
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity
+//        implements ConnectivityReceiver.ConnectivityReceiverListner
+
+{
+
+    ActivityMainBinding binding;
+    public static final String BroadcastStringForAction = "checkinternet";
+    private IntentFilter mIntentFilter;
 
     public BottomNavigationView bottomNavigation;
 
     private NavigationView navigationView;
     private DrawerLayout dLayout;
-    private RecyclerView postList;
     private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -66,8 +70,10 @@ public class MainActivity extends AppCompatActivity{
     private TextView NavProfileUserName;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference UsersRef,PostsRef;
+    private DatabaseReference UsersRef;
 
+    //creating doubliePressToExit
+    private boolean doublePressToExit = false;
 
 
 
@@ -79,6 +85,26 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction(BroadcastStringForAction);
+        Intent serviceIntent = new Intent(this, MyService.class);
+        startService(serviceIntent);
+
+
+        if (isOnline(getApplicationContext()))
+        {
+            //if the user in online
+        }
+        else
+        {
+            //if the user is OFFLINE
+            Set_Visibility_Off();
+
+        }
+
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -87,8 +113,6 @@ public class MainActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         dLayout =(DrawerLayout) findViewById(R.id.drawer_layout);
@@ -154,7 +178,78 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+
     }
+
+
+    //// code is checking response of isOnline starts
+
+    public BroadcastReceiver MyBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(BroadcastStringForAction));
+            {
+                if (intent.getStringExtra("online_status").equals("true"))
+                {
+                    //If the user is online do something here
+                }
+                else
+                {
+                    //if no internet connection do something here
+                    Set_Visibility_Off();
+                }
+            }
+        }
+    };
+
+    public boolean isOnline(Context context){
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+
+        if (ni != null && ni.isConnectedOrConnecting())
+            return true;
+        else
+            return false;
+    }
+
+    public void Set_Visibility_Off()
+    {
+
+        Intent noInternetConnection = new Intent(MainActivity.this, NoInternetActivity.class);
+        startActivity(noInternetConnection);
+        finish();
+//        Snackbar.make(this.getWindow().getDecorView().findViewById(R.id.drawer_layout),"Please Check your InterNet Connection!!",Snackbar.LENGTH_LONG).show();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
+//            getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.blacknavcolar));
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    changeNavBarColor();
+//                }
+//            },3200);
+//        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        registerReceiver(MyBroadcastReceiver,mIntentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(MyBroadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(MyBroadcastReceiver,mIntentFilter);
+    }
+
+    //// code is checking response of isOnline ends
 
     private boolean openFragment(Fragment fragment)
     {
@@ -167,7 +262,6 @@ public class MainActivity extends AppCompatActivity{
             return true;
         }
         return false;
-
     }
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
@@ -176,26 +270,19 @@ public class MainActivity extends AppCompatActivity{
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.navigation_home:
-//                            fragment = new HomeFragment();
-
                             openFragment(HomeFragment.newInstance("", ""));
-//                            SendUserToHomeFragment();
-//                            Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
                             return true;
                         case R.id.navigation_search:
                             openFragment(SearchFragment.newInstance("", ""));
-//                            Toast.makeText(MainActivity.this, "Search", Toast.LENGTH_SHORT).show();
                             return true;
                         case R.id.navigation_post:
                             SendUserToUserPostsActivity();
                             return true;
                         case R.id.navigation_notifications:
                             openFragment(NotificationFragment.newInstance("", ""));
-//                            Toast.makeText(MainActivity.this, "Notification", Toast.LENGTH_SHORT).show();
                             return true;
                         case R.id.navigation_profile:
                             openFragment(ProfileFragment.newInstance("", ""));
-//                            Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                             return true;
                     }
                     return false;
@@ -215,19 +302,16 @@ public class MainActivity extends AppCompatActivity{
         super.onStart();
         ///////////
         if (isConnected())
-        {
-//            Toast.makeText(getApplicationContext(), "Internet Connected", Toast.LENGTH_SHORT).show();
-        }
+        {}
         else
         {
             Intent nointernet = new  Intent(MainActivity.this, NoInternetActivity.class);
             nointernet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(nointernet);
             finish();
-//            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+//          Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
         }
-        /////////////
-
+        ///////////
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser == null)
@@ -256,6 +340,7 @@ public class MainActivity extends AppCompatActivity{
         }
         return connected;
     }
+
 
     private void CheckUserExistence() {
 
@@ -292,7 +377,7 @@ public class MainActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true; //по нажатию на гамбургер открывает боковое меню
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -316,20 +401,69 @@ public class MainActivity extends AppCompatActivity{
     }
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(R.drawable.jblogo)
-                .setTitle("JBUlla")
-                .setMessage("Are you sure you want to exit?")
-                .setCancelable(true)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        MainActivity.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+        // to show the snackbar
+        if (doublePressToExit)
+        {
+            super.onBackPressed();
+            return;
+        }
+        this.doublePressToExit = true;
+        Snackbar.make(this.getWindow().getDecorView().findViewById(R.id.drawer_layout),"Press back again to exit Bol app.",Snackbar.LENGTH_LONG).show();
+//9666004335
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.blacknavcolar));
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    changeNavBarColor();
+                }
+            },3200);
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doublePressToExit = false;
+            }
+        },2000);
+
+//        alert dialog to box to exit the app
+//        new AlertDialog.Builder(this)
+//                .setIcon(R.drawable.jblogo)
+//                .setTitle("JBUlla")
+//                .setMessage("Are you sure you want to exit?")
+//                .setCancelable(true)
+//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        MainActivity.super.onBackPressed();
+//                    }
+//                })
+//                .setNegativeButton("No", null)
+//                .show();
+
+
     }
 
+    private void changeNavBarColor()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP )
+        {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.white));
+        }
 
+    }
 
+    private void showSnackbar(View view, String message, int duration)
+    {
+        Snackbar.make(view,message,duration).show();
+    }
+
+//    @Override
+//    public void onNetworkConnectionChangerd(boolean isConnected)
+//    {
+//        //changeActivity here is connected
+//        showSnackbar(isConnected);
+//
+//
+//    }
 }

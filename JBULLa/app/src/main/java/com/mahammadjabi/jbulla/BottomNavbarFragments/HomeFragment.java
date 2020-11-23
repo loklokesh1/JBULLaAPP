@@ -1,33 +1,30 @@
 package com.mahammadjabi.jbulla.BottomNavbarFragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mahammadjabi.jbulla.AdapterPosts;
-
 import com.mahammadjabi.jbulla.Posts;
 import com.mahammadjabi.jbulla.R;
+import com.mahammadjabi.jbulla.ShowStatus.StatusActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +35,7 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private RecyclerView all_users_post;
+    private FloatingActionButton StatusFloatingButton;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -108,12 +106,15 @@ public class HomeFragment extends Fragment {
 //                Color.GREEN,Color.BLACK,Color.RED);
 
 
+
         all_users_post = (RecyclerView) view.findViewById(R.id.all_users_post);
         all_users_post.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         linearLayoutManager.setReverseLayout(true);
 //        linearLayoutManager.setStackFromEnd(true);
         all_users_post.setLayoutManager(linearLayoutManager);
+
+
 
 //        all_users_post.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
 
@@ -155,6 +156,19 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        StatusFloatingButton = view.findViewById(R.id.statusfloatingbutton);
+        StatusFloatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CallingStatusActivity();
+            }
+        });
+    }
+
+    private void CallingStatusActivity()
+    {
+        Intent callstatus = new Intent(getContext(), StatusActivity.class);
+        startActivity(callstatus);
     }
 
 //    private boolean isNetworkAvailable()

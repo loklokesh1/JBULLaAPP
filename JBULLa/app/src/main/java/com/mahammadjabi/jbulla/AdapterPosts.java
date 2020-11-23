@@ -1,6 +1,5 @@
 package com.mahammadjabi.jbulla;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.facebook.shimmer.Shimmer;
-import com.facebook.shimmer.ShimmerDrawable;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.core.Context;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,6 +23,7 @@ public class AdapterPosts extends RecyclerView.Adapter {
     List<Posts> postsList;
 
     public static ProgressBar progressBar;
+    public static ShimmerFrameLayout shimmerFrameLayout;
 
     public boolean showShimmer = true;
     int noOfItemShow = 1;
@@ -163,6 +160,7 @@ public class AdapterPosts extends RecyclerView.Adapter {
 //             layout10 = itemView.findViewById(R.id.shimmer10);
 
              progressBar = itemView.findViewById(R.id.progressbarhome);
+//            shimmerFrameLayout = itemView.findViewById(R.id.shimmer);
 
         }
 
