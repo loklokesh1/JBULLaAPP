@@ -1,10 +1,6 @@
 package com.mahammadjabi.jbulla.UserRegister;
 
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -190,17 +190,37 @@ public class SetupActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(Username))
         {
-            UserName.setError("UserName con't be Empty");
+            UserName.setError("UserName can't be Empty");
         }
-        if (TextUtils.isEmpty(fullname))
+        else if (Username != null)
+        {
+            Toast.makeText(this, "checking user name", Toast.LENGTH_SHORT).show();
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
+            ref.orderByChild("username").equalTo(Username).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists())
+                    {
+                        UserName.setError("UserName already exists!!!");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (TextUtils.isEmpty(fullname))
         {
             FullName.setError("FullName con't be Empty");
         }
-        if (TextUtils.isEmpty(Countryname))
+        else if (TextUtils.isEmpty(Countryname))
         {
             CountryName.setError("CountryName con't be Empty");
         }
-        if(!VALID_USERNAME_REGEX.matcher(UserName.getText().toString()).find())
+        else if(!VALID_USERNAME_REGEX.matcher(UserName.getText().toString()).find())
         {
             UserName.setError("Please name aleast 6-20 characters \nuse \"A-Z\",\"a-z\",\"0-9\" ,\ndo not use Special characters");
         }
@@ -236,6 +256,7 @@ public class SetupActivity extends AppCompatActivity {
             });
         }
     }
+
     private void SendUserToMainActivity()
     {
         Intent mainintent = new Intent(SetupActivity.this, MainActivity.class);

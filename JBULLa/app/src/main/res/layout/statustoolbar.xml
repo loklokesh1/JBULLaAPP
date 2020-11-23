@@ -13,9 +13,22 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@android:color/white"
-        app:title="Bol"
         app:titleTextColor="@android:color/white"
         android:elevation="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
 
     </androidx.appcompat.widget.Toolbar>
 

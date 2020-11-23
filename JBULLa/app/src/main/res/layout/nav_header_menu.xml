@@ -30,6 +30,7 @@
         android:layout_marginLeft="25dp"
         android:text="Username"
         android:textSize="14dp"
+        android:fontFamily="@font/salsa"
         android:textColor="@android:color/white"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/nav_profile_username"
