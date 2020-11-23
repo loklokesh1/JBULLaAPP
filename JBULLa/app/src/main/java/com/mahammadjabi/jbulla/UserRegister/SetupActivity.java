@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -54,7 +55,7 @@ public class SetupActivity extends AppCompatActivity {
     final static int Gallery_Pick = 1;
 
     public static final Pattern VALID_USERNAME_REGEX =
-            Pattern.compile("^[A-Za-z0-9_-]{6,20}$", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^[a-z0-9_-]{6,20}$", Pattern.CASE_INSENSITIVE);
 
 
     @Override
@@ -184,17 +185,29 @@ public class SetupActivity extends AppCompatActivity {
 
     private void SaveAccountSetupInformation()
     {
-        String Username = UserName.getText().toString();
-        String fullname = FullName.getText().toString();
-        String Countryname = CountryName.getText().toString();
+        final String Username = UserName.getText().toString();
+        final String fullname = FullName.getText().toString();
+        final String Countryname = CountryName.getText().toString();
 
+        if (ProfileImage != null)
+        {
+            Toast.makeText(this, "Please select Profile Image", Toast.LENGTH_LONG).show();
+        }
+        if (TextUtils.isEmpty(fullname))
+        {
+            FullName.setError("FullName con't be Empty");
+        }
+        if (TextUtils.isEmpty(Countryname))
+        {
+            CountryName.setError("CountryName con't be Empty");
+        }
         if (TextUtils.isEmpty(Username))
         {
             UserName.setError("UserName can't be Empty");
         }
         else if (Username != null)
         {
-            Toast.makeText(this, "checking user name", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "checking user name", Toast.LENGTH_SHORT).show();
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
             ref.orderByChild("username").equalTo(Username).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -212,48 +225,50 @@ public class SetupActivity extends AppCompatActivity {
             });
 
         }
-        else if (TextUtils.isEmpty(fullname))
-        {
-            FullName.setError("FullName con't be Empty");
-        }
-        else if (TextUtils.isEmpty(Countryname))
-        {
-            CountryName.setError("CountryName con't be Empty");
-        }
         else if(!VALID_USERNAME_REGEX.matcher(UserName.getText().toString()).find())
         {
-            UserName.setError("Please name aleast 6-20 characters \nuse \"A-Z\",\"a-z\",\"0-9\" ,\ndo not use Special characters");
+            UserName.setError("Please Username aleast 6-20 characters\nuse,\"a-z\",\"0-9\" ,\ndo not use Special characters");
         }
         else
         {
-            progressBar.setVisibility(View.VISIBLE);
-            HashMap userMap = new HashMap();
-            userMap.put("username",Username);
-            userMap.put("fullname",fullname);
-            userMap.put("countryname",Countryname);
-            userMap.put("status","none");
-            userMap.put("gender","none");
-            userMap.put("dob","none");
-            userMap.put("relationship","none");
-            userMap.put("phonenumber","none");
-            userMap.put("email","none");
-            UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    if (task.isSuccessful())
-                    {
-                        SendUserToMainActivity();
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SetupActivity.this, "Your Account is created Successfully", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+                progressBar.setVisibility(View.VISIBLE);
+                HashMap userMap = new HashMap();
+                userMap.put("username",Username);
+                userMap.put("fullname",fullname);
+                userMap.put("countryname",Countryname);
+                userMap.put("status","none");
+                userMap.put("gender","none");
+                userMap.put("dob","none");
+                userMap.put("relationship","none");
+                userMap.put("phonenumber","none");
+                userMap.put("email","none");
+                UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if (task.isSuccessful())
+                        {
+                            SendUserToMainActivity();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SetupActivity.this, "Your Account is created Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            String msg = task.getException().getMessage();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SetupActivity.this, "Error occured:" + msg, Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    else
-                    {
-                        String msg = task.getException().getMessage();
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SetupActivity.this, "Error occured:" + msg, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                });
+
+            }
+        },1500);
+
+
         }
     }
 
@@ -263,5 +278,12 @@ public class SetupActivity extends AppCompatActivity {
         mainintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainintent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        SetupActivity.this.finish();
+//        System.exit(0);
     }
 }

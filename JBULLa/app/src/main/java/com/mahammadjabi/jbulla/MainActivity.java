@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity
 
         final String current_user_id = mAuth.getCurrentUser().getUid();
 
-        UsersRef.addValueEventListener(new ValueEventListener() {
+        UsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.hasChild(current_user_id))
@@ -363,7 +363,9 @@ public class MainActivity extends AppCompatActivity
     private void sendUserToSetupActivity()
     {
         Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setupIntent);
+        finish();
     }
     private void SendUserToLoginActivity()
     {
