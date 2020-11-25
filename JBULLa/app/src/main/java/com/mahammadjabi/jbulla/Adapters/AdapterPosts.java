@@ -1,4 +1,4 @@
-package com.mahammadjabi.jbulla;
+package com.mahammadjabi.jbulla.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.core.Context;
+import com.mahammadjabi.jbulla.Models.PostsModel;
+import com.mahammadjabi.jbulla.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,7 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterPosts extends RecyclerView.Adapter {
 
-    List<Posts> postsList;
+    List<PostsModel> postsList;
 
     public static ProgressBar progressBar;
     public static ShimmerFrameLayout shimmerFrameLayout;
@@ -29,9 +31,7 @@ public class AdapterPosts extends RecyclerView.Adapter {
     int noOfItemShow = 1;
     Context context;
 
-
-
-    public AdapterPosts(List<Posts> postsList) {
+    public AdapterPosts(List<PostsModel> postsList) {
         this.postsList = postsList;
 
     }
@@ -66,7 +66,7 @@ public class AdapterPosts extends RecyclerView.Adapter {
         }
         else
         {
-            Posts posts = postsList.get(position);
+            PostsModel posts = postsList.get(position);
 
 //            ((ViewHolderClass) holder).layout1.stopShimmer();
 //            ((ViewHolderClass) holder).layout1.setShimmer(null);

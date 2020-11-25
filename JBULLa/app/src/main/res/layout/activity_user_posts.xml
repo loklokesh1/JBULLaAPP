@@ -11,6 +11,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbars="none"
+        android:isScrollContainer="false"
         android:layout_marginBottom="50dp">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,7 +34,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:orientation="horizontal"
-                    android:background="#E9EAEB"
                     android:padding="5dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -103,23 +105,81 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/click_post_image"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:layout_margin="3dp"
-                    android:src="@drawable/post"
-                    android:background="@drawable/post_border"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerInside" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textAlignment="center"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:padding="10dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/blacknavcolar"
+                        android:fontFamily="@font/salsa"
+                        android:text="If you have any problem or need help\nTake anyone nearby neighbous help to do it."
+                        />
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amount:Rs"
+                        android:layout_marginLeft="50dp"
+                        android:textColor="@color/blacknavcolar"
+                        android:fontFamily="@font/salsa"
+                        android:textAlignment="center"
+                        android:padding="3dp"/>
+
+                    <EditText
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textColor="@color/blacknavcolar"
+                        android:id="@+id/amount"
+                        android:textAlignment="center"
+                        android:padding="6dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time:"
+                        android:layout_marginLeft="60dp"
+                        android:textColor="@color/blacknavcolar"
+                        android:fontFamily="@font/salsa"
+                        android:textAlignment="center"
+                        android:padding="3dp"/>
+
+                    <EditText
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time"
+                        android:textColor="@color/blacknavcolar"
+                        android:id="@+id/timetocomplete"
+                        android:textAlignment="center"
+                        android:padding="6dp"
+                        />
+
+
+                </LinearLayout>
+
                 <EditText
                     android:id="@+id/click_post_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:fontFamily="@font/salsa"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="3dp"
                     android:layout_marginRight="3dp"
                     android:padding="16dp"
@@ -128,6 +188,26 @@
                     android:textColorHint="@android:color/black"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/click_post_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="6dp"
+                    android:adjustViewBounds="true"
+                    android:visibility="visible"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/cameraicon" />
+                <ImageView
+                    android:id="@+id/click_post_image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_margin="3dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:visibility="gone"
+                    />
 
                <Button
                    android:id="@+id/click_share_post"

@@ -21,8 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mahammadjabi.jbulla.AdapterPosts;
-import com.mahammadjabi.jbulla.Posts;
+import com.mahammadjabi.jbulla.Adapters.AdapterPosts;
+import com.mahammadjabi.jbulla.Models.PostsModel;
 import com.mahammadjabi.jbulla.R;
 import com.mahammadjabi.jbulla.ShowStatus.StatusActivity;
 
@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
 
     private DatabaseReference PostsRef;
 
-    List<Posts> posts;
+    List<PostsModel> posts;
     AdapterPosts adapterPosts;
 
     Handler handler;
@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    final Posts data = ds.getValue(Posts.class);
+                    final PostsModel data = ds.getValue(PostsModel.class);
 
 //                    posts.add(data);
                     new Handler().postDelayed(new Runnable() {

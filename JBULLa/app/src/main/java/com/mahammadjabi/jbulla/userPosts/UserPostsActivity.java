@@ -1,9 +1,5 @@
 package com.mahammadjabi.jbulla.userPosts;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -30,14 +30,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.mahammadjabi.jbulla.BottomNavbarFragments.HomeFragment;
 import com.mahammadjabi.jbulla.MainActivity;
 import com.mahammadjabi.jbulla.R;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -53,6 +49,7 @@ public class UserPostsActivity extends AppCompatActivity {
     private EditText PostDescription;
     private ProgressDialog loadingBar;
     private ImageView SelectPostImage;
+    private ImageView SelectPostImage1;
 
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef, PostsRef;
@@ -91,6 +88,7 @@ public class UserPostsActivity extends AppCompatActivity {
 
 
         SelectPostImage = (ImageView) findViewById(R.id.click_post_image);
+        SelectPostImage1 = (ImageView) findViewById(R.id.click_post_image1);
         PostDescription = (EditText) findViewById(R.id.click_post_description);
         SharePostButton = (Button) findViewById(R.id.click_share_post);
 
@@ -129,23 +127,22 @@ public class UserPostsActivity extends AppCompatActivity {
             {
                 postdescription = PostDescription.getText().toString();
 
-                if (ImageUri == null)
+                if (ImageUri == null && TextUtils.isEmpty(postdescription))
                 {
-                    Toast.makeText(UserPostsActivity.this, "please select post image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserPostsActivity.this, "Please select Image or\nWrite something..!", Toast.LENGTH_SHORT).show();
                 }
-                else if (TextUtils.isEmpty(postdescription))
-                {
-                    PostDescription.setError("Write something about your post");
-                }
+//                else if (ImageUri != null || postdescription != null)
+//                {
+//                    ShareUserPost();
+//                }
                 else
                 {
                     ShareUserPost();
+//                    Toast.makeText(UserPostsActivity.this, "Error while selecting your imput", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-
-
 
         UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -163,11 +160,6 @@ public class UserPostsActivity extends AppCompatActivity {
                         String image = dataSnapshot.child("profileimage").getValue().toString();
                         Picasso.with(UserPostsActivity.this).load(image).placeholder(R.drawable.profile1).into(ProfileImage);
                     }
-//                    if (dataSnapshot.hasChild("post"))
-//                    {
-//                        String image = dataSnapshot.child("post").getValue().toString();
-//                        Picasso.with(UserPostsActivity.this).load(image).placeholder(R.drawable.post).into(SelectPostImage);
-//                    }
                     else
                     {
                         Toast.makeText(UserPostsActivity.this, "Please select post image first", Toast.LENGTH_SHORT).show();
@@ -178,7 +170,6 @@ public class UserPostsActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
     }
 
     @Override
@@ -188,28 +179,27 @@ public class UserPostsActivity extends AppCompatActivity {
         if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null)
         {
            ImageUri = data.getData();
-           SelectPostImage.setImageURI(ImageUri);
+           SelectPostImage1.setImageURI(ImageUri);
+           SelectPostImage1.setVisibility(View.VISIBLE);
+           SelectPostImage.setVisibility(View.GONE);
         }
-
     }
 
     private void ShareUserPost()
     {
-
         loadingBar.setMessage("Uploading post...");
         loadingBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         loadingBar.show();
-
+        if (ImageUri !=null) {
             StoringImageToFirebaseStorage();
-//
-//
+        }
+        if (postdescription != null)
+            SaveingPostInformationToDatabase();
     }
 
     private void StoringImageToFirebaseStorage()
     {
-
         Calendar calFordDate = Calendar.getInstance();
-
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy", Locale.ENGLISH);
         saveCurrentDate = currentDate.format(calFordDate.getTime());
 
@@ -217,10 +207,9 @@ public class UserPostsActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         saveCurrentTime = currentTime.format(calFordDate.getTime());
 
-        postRandomName = saveCurrentDate + saveCurrentDate;
+        postRandomName = saveCurrentDate + saveCurrentTime;
 
         StorageReference filepath = UserPostImageRef.child("Post Images").child(ImageUri.getLastPathSegment() + postRandomName + ".jpg");
-
         filepath.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
@@ -239,7 +228,7 @@ public class UserPostsActivity extends AppCompatActivity {
 
                                 if (task.isSuccessful())
                                 {
-//                                    Toast.makeText(UserPostsActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+//                                 Toast.makeText(UserPostsActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
                                     SaveingPostInformationToDatabase();
                                 }
                                 else
@@ -247,18 +236,26 @@ public class UserPostsActivity extends AppCompatActivity {
                                     String massage = task.getException().getMessage();
                                     Toast.makeText(UserPostsActivity.this, "Error occured "+massage, Toast.LENGTH_SHORT).show();
                                 }
-
                             }
                         });
                     }
                 });
-
             }
         });
     }
 
     private void SaveingPostInformationToDatabase()
     {
+        Calendar calFordDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy", Locale.ENGLISH);
+        saveCurrentDate = currentDate.format(calFordDate.getTime());
+
+        Calendar calFordTime = Calendar.getInstance();
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        saveCurrentTime = currentTime.format(calFordDate.getTime());
+
+        postRandomName = saveCurrentDate + saveCurrentTime;
+
         UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot)
@@ -298,7 +295,6 @@ public class UserPostsActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -310,12 +306,4 @@ public class UserPostsActivity extends AppCompatActivity {
         startActivity(mainintent);
         finish();
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent homeintent = new Intent(UserPostsActivity.this, MainActivity.class);
-//        startActivity(homeintent);
-//        finish();
-//    }
 }

@@ -1,16 +1,16 @@
-package com.mahammadjabi.jbulla;
+package com.mahammadjabi.jbulla.Models;
 
-public class Posts
+public class PostsModel
 {
 
     public String uid,time,date,postimage,username,description,profileimage;
 
-    public Posts()
+    public PostsModel()
     {
 
     }
 
-    public Posts(String uid, String time, String date, String postimage, String username, String description, String profileimage) {
+    public PostsModel(String uid, String time, String date, String postimage, String username, String description, String profileimage) {
         this.uid = uid;
         this.time = time;
         this.date = date;

@@ -12,36 +12,54 @@
         android:layout_height="wrap_content"/>
 
 
-        <androidx.core.widget.NestedScrollView
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="?actionBarSize"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            >
 
-            <FrameLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/all_users_stories"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/white" />
+
+        </FrameLayout>
 
 
-<!--                <ProgressBar-->
-<!--                    android:id="@+id/progressbarhome"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="80dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:visibility="visible"-->
+
+<!--        <androidx.core.widget.NestedScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="?actionBarSize"-->
+<!--            app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+<!--            <FrameLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+
+<!--&lt;!&ndash;                <ProgressBar&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/progressbarhome"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="80dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="80dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:visibility="visible"&ndash;&gt;-->
+<!--&lt;!&ndash;                    />&ndash;&gt;-->
+
+
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/all_users_stories"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:nestedScrollingEnabled="false"-->
 <!--                    />-->
 
+<!--            </FrameLayout>-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/all_users_stories"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    />
-
-            </FrameLayout>
-
-        </androidx.core.widget.NestedScrollView>
+<!--        </androidx.core.widget.NestedScrollView>-->
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
