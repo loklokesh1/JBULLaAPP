@@ -9,4 +9,8 @@
     <string name="verify">Verify</string>
     <string name="resend_code">Resend code</string>
     <string name="todo">TODO</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="dashes">_________________________________________</string>
 </resources>

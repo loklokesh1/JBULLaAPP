@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -49,9 +50,8 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity
-//        implements ConnectivityReceiver.ConnectivityReceiverListner
 
+public class MainActivity extends AppCompatActivity
 {
 
     ActivityMainBinding binding;
@@ -65,8 +65,9 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
+    private SearchView searchView;
 
-    private CircleImageView NavProfileImage;
+    private CircleImageView NavProfileImage,ToolbarProfileImage;
     private TextView NavProfileUserName;
 
     private FirebaseAuth mAuth;
@@ -105,10 +106,8 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
@@ -130,9 +129,10 @@ public class MainActivity extends AppCompatActivity
 
         openFragment(new HomeFragment());
 
-
         NavProfileImage = (CircleImageView) navView.findViewById(R.id.nav_profile_image);
         NavProfileUserName = (TextView)  navView.findViewById(R.id.nav_profile_username);
+
+        ToolbarProfileImage = toolbar.findViewById(R.id.toolbarprofileimage);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -170,6 +170,26 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        UsersRef.child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                {
+                    if(dataSnapshot.hasChild("profileimage"))
+                    {
+                        String image = dataSnapshot.child("profileimage").getValue().toString();
+                        Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile1).into(ToolbarProfileImage);
+                    }
+                    else
+                    {
+                        Toast.makeText(MainActivity.this, "Profile name doesn't exist", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -177,7 +197,6 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
-
 
     }
 
@@ -251,7 +270,7 @@ public class MainActivity extends AppCompatActivity
 
     //// code is checking response of isOnline ends
 
-    private boolean openFragment(Fragment fragment)
+    public boolean openFragment(Fragment fragment)
     {
         if (fragment != null)
         {
@@ -274,6 +293,8 @@ public class MainActivity extends AppCompatActivity
                             return true;
                         case R.id.navigation_search:
                             openFragment(SearchFragment.newInstance("", ""));
+//                            Intent tabactivity = new Intent(MainActivity.this,TabActivity.class);
+//                            startActivity(tabactivity);
                             return true;
                         case R.id.navigation_post:
                             SendUserToUserPostsActivity();
@@ -301,9 +322,7 @@ public class MainActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         ///////////
-        if (isConnected())
-        {}
-        else
+        if (!isConnected())
         {
             Intent nointernet = new  Intent(MainActivity.this, NoInternetActivity.class);
             nointernet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -411,7 +430,6 @@ public class MainActivity extends AppCompatActivity
         }
         this.doublePressToExit = true;
         Snackbar.make(this.getWindow().getDecorView().findViewById(R.id.drawer_layout),"Press back again to exit Bol app.",Snackbar.LENGTH_LONG).show();
-//9666004335
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
             getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.blacknavcolar));
 
@@ -454,12 +472,6 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-
-    private void showSnackbar(View view, String message, int duration)
-    {
-        Snackbar.make(view,message,duration).show();
-    }
-
 //    @Override
 //    public void onNetworkConnectionChangerd(boolean isConnected)
 //    {

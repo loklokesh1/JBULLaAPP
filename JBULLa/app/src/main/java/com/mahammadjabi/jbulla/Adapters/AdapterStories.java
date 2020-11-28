@@ -38,7 +38,7 @@ public class AdapterStories extends RecyclerView.Adapter
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
     {
-        StoryViewholder storyViewholder = (StoryViewholder)holder;
+//        StoryViewholder storyViewholder = (StoryViewholder)holder;
 //        Picasso.with(holder.itemView.getContext()).load(list.get(position).getImages().get(0))
 //                .placeholder(R.drawable.profile1)
 //                .into(holder.thumnail);

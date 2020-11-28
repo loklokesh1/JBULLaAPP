@@ -1,23 +1,31 @@
 package com.mahammadjabi.jbulla.Models;
 
-public class PostsModel
-{
+public class AskHelpUsersModel {
 
-    public String uid,time,date,postimage,username,description,profileimage;
+    public String uid;
+    public String time;
+    public String asktime;
+    public String askamount;
 
-    public PostsModel()
-    {
 
-    }
-
-    public PostsModel(String uid, String time, String date, String postimage, String username, String description, String profileimage) {
+    public AskHelpUsersModel(String uid, String time, String date, String username, String description, String profileimage, String asktime, String askamount) {
         this.uid = uid;
         this.time = time;
         this.date = date;
-        this.postimage = postimage;
         this.username = username;
         this.description = description;
         this.profileimage = profileimage;
+        this.asktime = asktime;
+        this.askamount = askamount;
+    }
+
+    public String date;
+    public String username;
+    public String description;
+    public String profileimage;
+
+
+    public AskHelpUsersModel() {
     }
 
     public String getUid() {
@@ -44,21 +52,12 @@ public class PostsModel
         this.date = " "+date;
     }
 
-    public String getPostimage() {
-        return postimage;
-    }
-
-    public void setPostimage(String postimage) {
-        this.postimage = postimage;
-
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
-        this.username = " "+username;
+        this.username = username;
     }
 
     public String getDescription() {
@@ -66,7 +65,7 @@ public class PostsModel
     }
 
     public void setDescription(String description) {
-        this.description = " "+description;
+        this.description = description;
     }
 
     public String getProfileimage() {
@@ -76,4 +75,21 @@ public class PostsModel
     public void setProfileimage(String profileimage) {
         this.profileimage = profileimage;
     }
+
+    public String getAsktime() {
+        return asktime;
+    }
+
+    public void setAsktime(String asktime) {
+        this.asktime = asktime;
+    }
+
+    public String getAskamount() {
+        return askamount;
+    }
+
+    public void setAskamount(String askamount) {
+        this.askamount = askamount;
+    }
+
 }

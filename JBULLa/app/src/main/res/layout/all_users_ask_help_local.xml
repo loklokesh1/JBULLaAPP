@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--    <com.facebook.shimmer.ShimmerFrameLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:shimmer_colored="true"-->
+    <!--        app:shimmer_highlight_color="#9C9DA0"-->
+    <!--        android:id="@+id/shimmer">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <!--            <com.facebook.shimmer.ShimmerFrameLayout-->
+            <!--                android:id="@+id/shimmer1"-->
+            <!--                app:shimmer_auto_start="true"-->
+            <!--                app:shimmer_colored="true"-->
+            <!--                app:shimmer_duration="900"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                app:shimmer_highlight_color="#9C9DA0"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                >-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ask_profile_image"
+                android:layout_width="60dp"
+                android:padding="1dp"
+                android:layout_height="60dp"
+                android:src="@drawable/profile1"
+                android:scaleType="centerCrop"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorAccent"
+                android:layout_marginStart="4dp"/>
+
+            <!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--                <com.facebook.shimmer.ShimmerFrameLayout-->
+                <!--                    android:id="@+id/shimmer2"-->
+                <!--                    app:shimmer_auto_start="true"-->
+                <!--                    app:shimmer_colored="true"-->
+                <!--                    app:shimmer_duration="900"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_marginLeft="2dp"-->
+                <!--                    app:shimmer_highlight_color="#9C9DA0"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    >-->
+                <TextView
+                    android:id="@+id/ask_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="user name"
+                    android:fontFamily="@font/salsa"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="8dp"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
+
+                <!--                </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="5dp"
+                    android:padding="2dp">
+                    <!--                    <com.facebook.shimmer.ShimmerFrameLayout-->
+                    <!--                        android:id="@+id/shimmer3"-->
+                    <!--                        app:shimmer_duration="900"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        app:shimmer_auto_start="true"-->
+                    <!--                        app:shimmer_colored="true"-->
+                    <!--                        android:layout_marginLeft="2dp"-->
+                    <!--                        app:shimmer_highlight_color="#9C9DA0"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        >-->
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Requested on"
+                        android:fontFamily="@font/salsa"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                    <!--                    </com.facebook.shimmer.ShimmerFrameLayout>-->
+                    <!--                    <com.facebook.shimmer.ShimmerFrameLayout-->
+                    <!--                        android:id="@+id/shimmer4"-->
+                    <!--                        app:shimmer_duration="900"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        app:shimmer_auto_start="true"-->
+                    <!--                        app:shimmer_colored="true"-->
+                    <!--                        android:layout_marginLeft="2dp"-->
+                    <!--                        app:shimmer_highlight_color="#9C9DA0"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        >-->
+
+                    <TextView
+                        android:id="@+id/ask_post_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:fontFamily="@font/salsa"
+                        android:layout_gravity="center_vertical"
+                        android:padding="4dp"
+                        android:lines="1"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+                    <!--                    </com.facebook.shimmer.ShimmerFrameLayout>-->
+                    <!--                    <com.facebook.shimmer.ShimmerFrameLayout-->
+                    <!--                        android:id="@+id/shimmer5"-->
+                    <!--                        app:shimmer_duration="900"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        app:shimmer_auto_start="true"-->
+                    <!--                        app:shimmer_colored="true"-->
+                    <!--                        android:layout_marginLeft="2dp"-->
+                    <!--                        app:shimmer_highlight_color="#9C9DA0"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        >-->
+                    <TextView
+                        android:id="@+id/ask_post_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:fontFamily="@font/salsa"
+                        android:lines="1"
+                        android:layout_gravity="center_vertical"
+                        android:padding="4dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+                    <!--                    </com.facebook.shimmer.ShimmerFrameLayout>-->
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/menudetails"
+                        android:padding="2dp"
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--        <com.facebook.shimmer.ShimmerFrameLayout-->
+        <!--            android:id="@+id/shimmer6"-->
+        <!--            app:shimmer_duration="900"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            app:shimmer_auto_start="true"-->
+        <!--            app:shimmer_colored="true"-->
+        <!--            android:layout_marginLeft="2dp"-->
+        <!--            app:shimmer_highlight_color="#9C9DA0"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            >-->
+        <TextView
+            android:id="@+id/ask_post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Post description.."
+            android:fontFamily="@font/salsa"
+            android:background="@drawable/asktextbackground"
+            android:layout_marginTop="6dp"
+            android:visibility="visible"
+            android:layout_marginLeft="68dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="4dp"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_marginLeft="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount Rs:"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:fontFamily="@font/salsa"
+                android:textColor="@color/blacknavcolar"
+                />
+
+            <TextView
+                android:id="@+id/askamount"
+                android:fontFamily="@font/salsa"
+                android:padding="4dp"
+                android:textColor="@color/statustoolbarcolor"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:fontFamily="@font/salsa"
+                android:textColor="@color/blacknavcolar"
+                />
+
+            <TextView
+                android:id="@+id/asktimetocomplete"
+                android:fontFamily="@font/salsa"
+                android:padding="4dp"
+                android:textColor="@color/statustoolbarcolor"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+        <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+        <!--        <com.facebook.shimmer.ShimmerFrameLayout-->
+        <!--            android:id="@+id/shimmer7"-->
+        <!--            app:shimmer_duration="900"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            app:shimmer_auto_start="true"-->
+        <!--            app:shimmer_colored="true"-->
+        <!--            android:layout_marginTop="2dp"-->
+        <!--            android:layout_marginLeft="2dp"-->
+        <!--            android:layout_marginBottom="3dp"-->
+        <!--            app:shimmer_highlight_color="#9C9DA0"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            >-->
+
+
+        <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="68dp"
+            android:layout_marginRight="10dp">
+            <!--            <com.facebook.shimmer.ShimmerFrameLayout-->
+            <!--                android:id="@+id/shimmer8"-->
+            <!--                app:shimmer_duration="900"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                app:shimmer_auto_start="true"-->
+            <!--                app:shimmer_colored="true"-->
+            <!--                android:layout_marginLeft="2dp"-->
+            <!--                app:shimmer_highlight_color="#9C9DA0"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                >-->
+            <ImageButton
+                android:id="@+id/like_button"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:backgroundTint="@android:color/white"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="25dp"
+                android:src="@drawable/likeicon"/>
+            <!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
+            <!--            <com.facebook.shimmer.ShimmerFrameLayout-->
+            <!--                android:id="@+id/shimmer9"-->
+            <!--                app:shimmer_duration="900"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                app:shimmer_auto_start="true"-->
+            <!--                app:shimmer_colored="true"-->
+            <!--                android:layout_marginLeft="2dp"-->
+            <!--                app:shimmer_highlight_color="#9C9DA0"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                >-->
+            <TextView
+                android:id="@+id/display_no_of_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="143541 likes"
+                android:fontFamily="@font/salsa"
+                android:layout_gravity="center_vertical"
+                android:padding="15dp"
+                android:textColor="@android:color/black"
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+            <!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
+            <!--            <com.facebook.shimmer.ShimmerFrameLayout-->
+            <!--                android:id="@+id/shimmer10"-->
+            <!--                app:shimmer_duration="900"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                app:shimmer_auto_start="true"-->
+            <!--                app:shimmer_colored="true"-->
+            <!--                android:layout_marginLeft="2dp"-->
+            <!--                app:shimmer_highlight_color="#9C9DA0"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                >-->
+            <ImageButton
+                android:id="@+id/comment_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@android:color/white"
+                android:baselineAlignBottom="true"
+                android:src="@drawable/commentsicon"/>
+            <!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+
+
+        </LinearLayout>
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="0dp"-->
+        <!--            android:padding="0dp"-->
+        <!--            android:elevation="4dp"-->
+        <!--            android:text="____________________________________________________________"-->
+        <!--            />-->
+    </LinearLayout>
+
+    <!--    </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+</RelativeLayout>

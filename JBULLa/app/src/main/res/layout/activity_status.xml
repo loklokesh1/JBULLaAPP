@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,64 +21,43 @@
                 android:id="@+id/all_users_stories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/white" />
+                android:nestedScrollingEnabled="false"
+             />
 
         </FrameLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:orientation="vertical">
 
 
-<!--        <androidx.core.widget.NestedScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="?actionBarSize"-->
-<!--            app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
-<!--            <FrameLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent">-->
-
-
-<!--&lt;!&ndash;                <ProgressBar&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:id="@+id/progressbarhome"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_width="80dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_height="80dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_gravity="center"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:visibility="visible"&ndash;&gt;-->
-<!--&lt;!&ndash;                    />&ndash;&gt;-->
-
-
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/all_users_stories"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:nestedScrollingEnabled="false"-->
-<!--                    />-->
-
-<!--            </FrameLayout>-->
-
-<!--        </androidx.core.widget.NestedScrollView>-->
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/statusfloatingbuttonpen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/penicon"
+            android:layout_gravity="center"
+            app:fabSize="mini"
+            app:useCompatPadding="true" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/statusfloatingbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="10dp"
+            android:layout_gravity="center"
             android:src="@drawable/cameraicon"
             app:fabSize="normal"
             app:useCompatPadding="true"
             />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/statusfloatingbuttonpen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_margin="10dp"
-        android:src="@drawable/penicon"
-        app:fabSize="normal"
-        app:useCompatPadding="true"
-        />
+
+
+
+    </LinearLayout>
+
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

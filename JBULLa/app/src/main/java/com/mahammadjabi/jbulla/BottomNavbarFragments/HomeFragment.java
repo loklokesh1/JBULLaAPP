@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,12 +38,15 @@ public class HomeFragment extends Fragment {
     private RecyclerView all_users_post;
     private FloatingActionButton StatusFloatingButton;
 
+
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private DatabaseReference PostsRef;
 
     List<PostsModel> posts;
     AdapterPosts adapterPosts;
+
+    private ImageView popupmenu;
 
     Handler handler;
 
@@ -73,7 +77,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 //        swipeRefreshLayout =view.findViewById(R.id.refreshlayout);
@@ -111,8 +115,16 @@ public class HomeFragment extends Fragment {
         all_users_post.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         linearLayoutManager.setReverseLayout(true);
-//        linearLayoutManager.setStackFromEnd(true);
         all_users_post.setLayoutManager(linearLayoutManager);
+
+//        popupmenu= view.findViewById(R.id.popupmenu);
+//
+//        popupmenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(), "Pop Up menu", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 
@@ -120,7 +132,7 @@ public class HomeFragment extends Fragment {
 
 //        if (linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
 //        }
-//      if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == posts.size()-1){}
+//      if (linearLayoutManager.findLastCompletelyVisibleItemPosition()   == posts.size()-1){}
 
         posts = new ArrayList<>();
 
@@ -130,23 +142,18 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    final PostsModel data = ds.getValue(PostsModel.class);
+                     PostsModel data = ds.getValue(PostsModel.class);
 
-//                    posts.add(data);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run()
-                        {
                             posts.add(data);
-                            adapterPosts.notifyDataSetChanged();
-                            adapterPosts.showShimmer=false;
-                        }
-                    },500);
+//                            adapterPosts.notifyDataSetChanged();
+//                            adapterPosts.showShimmer=false;
 
                 }
                 adapterPosts = new AdapterPosts(posts);
                 all_users_post.setAdapter(adapterPosts);
-                all_users_post.invalidate();
+                all_users_post.invalidateItemDecorations();
+
+
 
             }
 
@@ -171,24 +178,6 @@ public class HomeFragment extends Fragment {
         startActivity(callstatus);
     }
 
-//    private boolean isNetworkAvailable()
-//    {
-//        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo networkinfo = connectivityManager.getActiveNetworkInfo();
-//        return networkinfo != null;
-//
-//    }
-
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//    }
 }
 //
 //<!--<?xml version="1.0" encoding="utf-8"?>-->

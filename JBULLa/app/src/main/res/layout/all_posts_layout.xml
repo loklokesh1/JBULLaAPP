@@ -41,10 +41,10 @@
                 android:layout_width="60dp"
                 android:padding="1dp"
                 android:layout_height="60dp"
-                android:src="@drawable/profile"
+                android:src="@drawable/profile1"
                 android:scaleType="centerCrop"
                 app:civ_border_width="2dp"
-                app:civ_border_color="@color/bottomnavColor"
+                app:civ_border_color="@color/colorAccent"
                 android:layout_marginStart="4dp"/>
 
 <!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
@@ -156,6 +156,7 @@
                         android:textSize="14sp" />
 <!--                    </com.facebook.shimmer.ShimmerFrameLayout>-->
                     <ImageView
+                        android:id="@+id/popupmenu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/menudetails"
@@ -186,6 +187,7 @@
             android:text="Post description.."
             android:fontFamily="@font/salsa"
             android:layout_marginTop="6dp"
+            android:visibility="visible"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -213,6 +215,7 @@
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:adjustViewBounds="true"
+            android:visibility="visible"
             android:scaleType="centerCrop"/>
 <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
 

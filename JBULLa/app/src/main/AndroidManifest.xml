@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowStatus.StatusActivity"></activity>
+        <activity android:name=".ShowStatus.StatusActivity" />
         <activity android:name=".userPosts.UserPostsActivity" />
         <activity android:name=".NoInternetActivity" />
         <activity android:name=".UserRegister.SetupActivity" />
@@ -34,6 +34,7 @@
             android:name=".NetworkCheck.MyService"
             android:enabled="true"
             android:exported="true" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

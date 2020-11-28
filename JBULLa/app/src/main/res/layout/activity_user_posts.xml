@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
-    tools:context=".userPosts.UserPostsActivity"
-    android:background="#FAFAFA">
+    android:background="#FAFAFA"
+    tools:context=".userPosts.UserPostsActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
         android:fadeScrollbars="false"
-        android:scrollbars="none"
         android:isScrollContainer="false"
-        android:layout_marginBottom="50dp">
+        android:scrollbars="none">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -27,7 +28,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_margin="4dp"
                 android:orientation="vertical">
-<!--                android:background="@drawable/post_border"-->
+                <!--                android:background="@drawable/post_border"-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,11 +42,11 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginLeft="4dp"
-                        android:scaleType="centerCrop"
-                        app:civ_border_color="@color/colorPrimaryDark"
-                        app:civ_border_width="2dp"
                         android:padding="2dp"
-                        android:src="@drawable/profile" />
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/profile"
+                        app:civ_border_color="@color/colorPrimaryDark"
+                        app:civ_border_width="2dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -57,118 +58,139 @@
                             android:id="@+id/click_post_user_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/pacifico"
+                            android:paddingLeft="10dp"
                             android:text="user name"
-                            android:fontFamily="@font/salsa"
-                            android:textAlignment="textStart"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
-                            />
+                            android:textStyle="bold" />
 
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/click_post_text"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="Has updated a post at:  "-->
-<!--                                android:textColor="@android:color/darker_gray"-->
-<!--                                android:textSize="13dp"-->
-<!--                                android:textStyle="bold" />-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/click_post_date"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="Date"-->
-<!--                                android:textColor="@android:color/black"-->
-<!--                                android:textSize="13dp"-->
-<!--                                android:textStyle="bold" />-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/click_post_time"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:paddingLeft="10dp"-->
-<!--                                android:text="Time"-->
-<!--                                android:textColor="@android:color/black"-->
-<!--                                android:textSize="13dp"-->
-<!--                                android:textStyle="bold" />-->
-
-<!--                        </LinearLayout>-->
-
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashes" />
 
                     </LinearLayout>
 
+
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textAlignment="center"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <Button
+                        android:id="@+id/share_post_to_local"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:padding="10dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/blacknavcolar"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/btn"
                         android:fontFamily="@font/salsa"
-                        android:text="If you have any problem or need help\nTake anyone nearby neighbous help to do it."
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Share post to nearby Location"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+
                         />
 
-
+                    <Button
+                        android:id="@+id/ask_help_to_near_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/btn"
+                        android:fontFamily="@font/salsa"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Ask help to complete your work"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
+
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ask_help_to_people_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/salsa"
+                        android:padding="10dp"
+                        android:text="If you have any problem or need help\nTake anyone nearby neighbous help to do it."
+                        android:textAlignment="center"
+                        android:textColor="@color/blacknavcolar"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/share_post_local_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/salsa"
+                        android:padding="10dp"
+                        android:text="Share your post to nearby location "
+                        android:textAlignment="center"
+                        android:textColor="@color/blacknavcolar"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/amount_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    >
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Amount:Rs"
                         android:layout_marginLeft="50dp"
-                        android:textColor="@color/blacknavcolar"
                         android:fontFamily="@font/salsa"
+                        android:padding="3dp"
+                        android:text="Amount:Rs"
                         android:textAlignment="center"
-                        android:padding="3dp"/>
+                        android:textColor="@color/blacknavcolar" />
 
                     <EditText
-                        android:layout_width="25dp"
+                        android:id="@+id/amount"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:textColor="@color/blacknavcolar"
-                        android:id="@+id/amount"
-                        android:textAlignment="center"
                         android:padding="6dp"
-                        />
+                        android:textAlignment="center"
+                        android:textColor="@color/blacknavcolar" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time:"
                         android:layout_marginLeft="60dp"
-                        android:textColor="@color/blacknavcolar"
                         android:fontFamily="@font/salsa"
+                        android:padding="3dp"
+                        android:text="Time:"
                         android:textAlignment="center"
-                        android:padding="3dp"/>
+                        android:textColor="@color/blacknavcolar" />
 
                     <EditText
-                        android:layout_width="25dp"
+                        android:id="@+id/timetocomplete"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:inputType="time"
-                        android:textColor="@color/blacknavcolar"
-                        android:id="@+id/timetocomplete"
-                        android:textAlignment="center"
                         android:padding="6dp"
-                        />
+                        android:textAlignment="center"
+                        android:textColor="@color/blacknavcolar" />
 
 
                 </LinearLayout>
@@ -178,16 +200,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
-                    android:fontFamily="@font/salsa"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="3dp"
                     android:layout_marginRight="3dp"
-                    android:padding="16dp"
+                    android:layout_marginBottom="3dp"
                     android:background="@drawable/text_logo"
+                    android:fontFamily="@font/salsa"
                     android:hint="Write something ..."
-                    android:textColorHint="@android:color/black"
+                    android:padding="16dp"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textColorHint="@android:color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/click_post_image"
@@ -196,9 +219,10 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="6dp"
                     android:adjustViewBounds="true"
-                    android:visibility="visible"
                     android:scaleType="centerInside"
-                    android:src="@drawable/cameraicon" />
+                    android:src="@drawable/cameraicon"
+                    android:visibility="gone" />
+
                 <ImageView
                     android:id="@+id/click_post_image1"
                     android:layout_width="match_parent"
@@ -206,21 +230,35 @@
                     android:layout_margin="3dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
-                    android:visibility="gone"
-                    />
+                    android:visibility="gone" />
 
-               <Button
-                   android:id="@+id/click_share_post"
-                   android:layout_width="150dp"
-                   android:layout_height="wrap_content"
-                   android:text="Share Post"
-                   android:fontFamily="@font/salsa"
-                   android:textAllCaps="false"
-                   android:background="@drawable/btn"
-                   android:textColor="#FFFFFF"
-                   android:textStyle="bold"
-                   android:layout_marginTop="20dp"
-                   android:layout_gravity="center_horizontal"/>
+                <Button
+                    android:id="@+id/click_share_post"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn"
+                    android:fontFamily="@font/salsa"
+                    android:text="Share Local"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/click_ask_help"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn"
+                    android:fontFamily="@font/salsa"
+                    android:text="Ask help"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

@@ -40,7 +40,8 @@ public class StatusActivity extends AppCompatActivity {
         });
 
         all_users_stories = findViewById(R.id.all_users_stories);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(StatusActivity.this, LinearLayoutManager.VERTICAL, true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(StatusActivity.this, LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager.setReverseLayout(true);
         all_users_stories.setLayoutManager(linearLayoutManager);
 
         List<String> images = new ArrayList<>();

@@ -1,21 +1,38 @@
 package com.mahammadjabi.jbulla.BottomNavbarFragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.mahammadjabi.jbulla.Adapters.AdapterAskHelpUsers;
+import com.mahammadjabi.jbulla.Models.AskHelpUsersModel;
 import com.mahammadjabi.jbulla.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchFragment extends Fragment {
+
+
+
+    private RecyclerView all_users_ask_help_local;
+
+    private DatabaseReference AskHelpUserRef;
+
+    List<AskHelpUsersModel> askhelp;
+    AdapterAskHelpUsers adapterAskHelpUsers;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,14 +47,6 @@ public class SearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static SearchFragment newInstance(String param1, String param2) {
         SearchFragment fragment = new SearchFragment();
@@ -63,4 +72,48 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        all_users_ask_help_local = (RecyclerView) view.findViewById(R.id.all_users_ask_help);
+        all_users_ask_help_local.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager.setReverseLayout(true);
+        all_users_ask_help_local.setLayoutManager(linearLayoutManager);
+
+
+        askhelp = new ArrayList<>();
+
+        AskHelpUserRef = FirebaseDatabase.getInstance().getReference().child("AskHelpPosts");
+
+        AskHelpUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    AskHelpUsersModel data = ds.getValue(AskHelpUsersModel.class);
+
+                    askhelp.add(data);
+
+                }
+                adapterAskHelpUsers = new AdapterAskHelpUsers(askhelp);
+                all_users_ask_help_local.setAdapter(adapterAskHelpUsers);
+                all_users_ask_help_local.invalidateItemDecorations();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
+
 }
+

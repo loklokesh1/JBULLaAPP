@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BottomNavbarFragments.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progressbarask"-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:visibility="visible"-->
+<!--                />-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/all_users_ask_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                />
+
+        </FrameLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+    <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+
+    <!--        android:id="@+id/refreshlayout"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/drawer_layout"-->
+    <!--        />-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
