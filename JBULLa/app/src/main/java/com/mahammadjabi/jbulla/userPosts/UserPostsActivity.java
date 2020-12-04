@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.mahammadjabi.jbulla.BottomNavbarFragments.HomeFragment;
 import com.mahammadjabi.jbulla.MainActivity;
 import com.mahammadjabi.jbulla.R;
 import com.squareup.picasso.Picasso;
@@ -163,10 +164,8 @@ public class UserPostsActivity extends AppCompatActivity {
                             Toast.makeText(UserPostsActivity.this, "Please enter time", Toast.LENGTH_SHORT).show();
                         else
                             AskUserPost();
-
                     }
                 });
-
 
             }
         });
@@ -203,31 +202,31 @@ public class UserPostsActivity extends AppCompatActivity {
             }
         });
 
-        UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                if (dataSnapshot.exists())
-                {
-                    if(dataSnapshot.hasChild("username"))
-                    {
-                        String fullname = dataSnapshot.child("username").getValue().toString();
-                        UserName.setText(fullname);
-                    }
-                    if(dataSnapshot.hasChild("profileimage"))
-                    {
-                        String image = dataSnapshot.child("profileimage").getValue().toString();
-                        Picasso.with(UserPostsActivity.this).load(image).placeholder(R.drawable.profile1).into(ProfileImage);
-                    }
-                    else
-                    {
-                        Toast.makeText(UserPostsActivity.this, "Please select post image first", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
+//        UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+//            {
+//                if (dataSnapshot.exists())
+//                {
+//                    if(dataSnapshot.hasChild("username"))
+//                    {
+//                        String fullname = dataSnapshot.child("username").getValue().toString();
+//                        UserName.setText(fullname);
+//                    }
+//                    if(dataSnapshot.hasChild("profileimage"))
+//                    {
+//                        String image = dataSnapshot.child("profileimage").getValue().toString();
+//                        Picasso.with(UserPostsActivity.this).load(image).placeholder(R.drawable.profile1).into(ProfileImage);
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(UserPostsActivity.this, "Please select post image first", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {}
+//        });
     }
 
     private void AskUserPost()
@@ -275,7 +274,11 @@ public class UserPostsActivity extends AppCompatActivity {
                     {
                         if (task.isSuccessful())
                         {
-                            SendUserToMainActivity();
+//                            SendUserToMainActivity();
+//                            AppCompatActivity activity = (AppCompatActivity);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                                    new HomeFragment())
+                                    .addToBackStack(null).commit();
                             loadingBar.dismiss();
 
                             Toast.makeText(UserPostsActivity.this, "New Post updated successfully", Toast.LENGTH_SHORT).show();
@@ -289,10 +292,8 @@ public class UserPostsActivity extends AppCompatActivity {
                 });
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -398,8 +399,12 @@ public class UserPostsActivity extends AppCompatActivity {
                         {
                             if (task.isSuccessful())
                             {
-                              SendUserToMainActivity();
-                              loadingBar.dismiss();
+//                              SendUserToMainActivity();
+
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                                        new HomeFragment())
+                                        .addToBackStack(null).commit();
+                                loadingBar.dismiss();
                               Toast.makeText(UserPostsActivity.this, "New Post updated successfully", Toast.LENGTH_SHORT).show();
                             }
                             else
@@ -426,4 +431,35 @@ public class UserPostsActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if (dataSnapshot.exists())
+                {
+                    if(dataSnapshot.hasChild("username"))
+                    {
+                        String fullname = dataSnapshot.child("username").getValue().toString();
+                        UserName.setText(fullname);
+                    }
+                    if(dataSnapshot.hasChild("profileimage"))
+                    {
+                        String image = dataSnapshot.child("profileimage").getValue().toString();
+                        Picasso.with(UserPostsActivity.this).load(image).placeholder(R.drawable.profile1).into(ProfileImage);
+                    }
+                    else
+                    {
+                        Toast.makeText(UserPostsActivity.this, "Please select post image first", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
 }

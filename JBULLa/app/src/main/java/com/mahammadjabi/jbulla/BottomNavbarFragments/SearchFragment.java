@@ -89,6 +89,15 @@ public class SearchFragment extends Fragment {
 
         AskHelpUserRef = FirebaseDatabase.getInstance().getReference().child("AskHelpPosts");
 
+
+
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         AskHelpUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -104,16 +113,11 @@ public class SearchFragment extends Fragment {
                 all_users_ask_help_local.invalidateItemDecorations();
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
-
     }
-
 }
 

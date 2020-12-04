@@ -315,8 +315,8 @@ public class MainActivity extends AppCompatActivity
     {
         Intent postactivity = new Intent(MainActivity.this, UserPostsActivity.class);
         startActivity(postactivity);
+//        overridePendingTransition(R.anim.slide_in_up,0);
     }
-
 
     @Override
     protected void onStart() {

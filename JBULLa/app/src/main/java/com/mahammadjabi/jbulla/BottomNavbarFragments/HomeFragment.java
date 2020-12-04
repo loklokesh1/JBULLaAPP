@@ -134,35 +134,10 @@ public class HomeFragment extends Fragment {
 //        }
 //      if (linearLayoutManager.findLastCompletelyVisibleItemPosition()   == posts.size()-1){}
 
-        posts = new ArrayList<>();
-
-        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
-
-        PostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                     PostsModel data = ds.getValue(PostsModel.class);
-
-                            posts.add(data);
-//                            adapterPosts.notifyDataSetChanged();
-//                            adapterPosts.showShimmer=false;
-
-                }
-                adapterPosts = new AdapterPosts(posts);
-                all_users_post.setAdapter(adapterPosts);
-                all_users_post.invalidateItemDecorations();
 
 
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-
-            }
-        });
         StatusFloatingButton = view.findViewById(R.id.statusfloatingbutton);
         StatusFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,6 +153,37 @@ public class HomeFragment extends Fragment {
         startActivity(callstatus);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        posts = new ArrayList<>();
+
+        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+
+        PostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    PostsModel data = ds.getValue(PostsModel.class);
+
+                    posts.add(data);
+//                            adapterPosts.notifyDataSetChanged();
+//                            adapterPosts.showShimmer=false;
+
+                }
+                adapterPosts = new AdapterPosts(posts);
+                all_users_post.setAdapter(adapterPosts);
+                all_users_post.invalidateItemDecorations();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {}
+        });
+
+    }
 }
 //
 //<!--<?xml version="1.0" encoding="utf-8"?>-->
