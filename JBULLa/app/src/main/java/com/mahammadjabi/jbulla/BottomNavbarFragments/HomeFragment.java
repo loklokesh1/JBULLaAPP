@@ -163,14 +163,15 @@ public class HomeFragment extends Fragment {
 
         PostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     PostsModel data = ds.getValue(PostsModel.class);
 
                     posts.add(data);
 //                            adapterPosts.notifyDataSetChanged();
 //                            adapterPosts.showShimmer=false;
-
                 }
                 adapterPosts = new AdapterPosts(posts);
                 all_users_post.setAdapter(adapterPosts);
