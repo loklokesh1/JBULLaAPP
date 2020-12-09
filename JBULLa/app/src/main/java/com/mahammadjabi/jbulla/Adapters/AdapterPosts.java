@@ -68,106 +68,106 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         final PostsModel posts = postsList.get(position);
 
-            viewHolderClass.date1.setText(posts.getDate());
-            viewHolderClass.time1.setText(posts.getTime());
-            viewHolderClass.postdescription1.setText(posts.getDescription());
-            viewHolderClass.UserUserName.setText(posts.getUsername());
-            Picasso.with(viewHolderClass.itemView.getContext())
-                    .load(posts.getProfileimage())
-                    .into(viewHolderClass.UserProfileImage);
-            Picasso.with(viewHolderClass.itemView.getContext())
-                   .load(posts.getPostimage())
-                   .into(viewHolderClass.UserPostImage);
+        viewHolderClass.date1.setText(posts.getDate());
+        viewHolderClass.time1.setText(posts.getTime());
+        viewHolderClass.postdescription1.setText(posts.getDescription());
+        viewHolderClass.UserUserName.setText(posts.getUsername());
+        Picasso.with(viewHolderClass.itemView.getContext())
+                .load(posts.getProfileimage())
+                .into(viewHolderClass.UserProfileImage);
+        Picasso.with(viewHolderClass.itemView.getContext())
+                .load(posts.getPostimage())
+                .into(viewHolderClass.UserPostImage);
 
-                    viewHolderClass.UserPostImage.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view)
-                        {
-                            AppCompatActivity activity = (AppCompatActivity)view.getContext();
-                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                                     new PostDetailsFragment(
-                                             posts.getUsername(),
-                                             posts.getProfileimage(),
-                                             posts.getDate(),
-                                             posts.getTime(),
-                                             posts.getDescription(),
-                                             posts.getPostimage()
-                                             ))
-                                    .addToBackStack(null).commit();
-                        }
-                    });
-                    viewHolderClass.PopUpMenu.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v)
-                        {
-                            final AppCompatActivity activity = (AppCompatActivity)v.getContext();
+        viewHolderClass.UserPostImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                AppCompatActivity activity = (AppCompatActivity)view.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                        new PostDetailsFragment(
+                                posts.getUsername(),
+                                posts.getProfileimage(),
+                                posts.getDate(),
+                                posts.getTime(),
+                                posts.getDescription(),
+                                posts.getPostimage()
+                        ))
+                        .addToBackStack(null).commit();
+            }
+        });
+        viewHolderClass.PopUpMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                final AppCompatActivity activity = (AppCompatActivity)v.getContext();
 //                            Toast.makeText(activity, "hpopopopoopooopo", Toast.LENGTH_SHORT).show();
-                            final View view = ((FragmentActivity)activity).getLayoutInflater().inflate(R.layout.bottom_sheet,null);
-                            EditPost = view.findViewById(R.id.editpost);
-                            DeletePost = view.findViewById(R.id.deletepost);
-                            SharePost = view.findViewById(R.id.sharepost);
-                            ReportPost = view.findViewById(R.id.reportpost);
-                            BottomSheetDialog dialog = new BottomSheetDialog(activity);
-                            dialog.setContentView(view);
-                            dialog.setCanceledOnTouchOutside(true);
-                            dialog.show();
+                final View view = ((FragmentActivity)activity).getLayoutInflater().inflate(R.layout.bottom_sheet,null);
+                EditPost = view.findViewById(R.id.editpost);
+                DeletePost = view.findViewById(R.id.deletepost);
+                SharePost = view.findViewById(R.id.sharepost);
+                ReportPost = view.findViewById(R.id.reportpost);
+                BottomSheetDialog dialog = new BottomSheetDialog(activity);
+                dialog.setContentView(view);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
 
-                            buttonclick = new AlphaAnimation(1F,0.8F);
-                            mAuth = FirebaseAuth.getInstance();
-                            Current_User_Id = mAuth.getCurrentUser().getUid();
-                            databaseUserID = posts.getUid();
-                            ClickPostRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(databaseUserID);
-                            ClickPostRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                                {
+                buttonclick = new AlphaAnimation(1F,0.8F);
+                mAuth = FirebaseAuth.getInstance();
+                Current_User_Id = mAuth.getCurrentUser().getUid();
+                databaseUserID = posts.getUid();
+                ClickPostRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(databaseUserID);
+                ClickPostRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                    {
 //                                    databaseUserID = posts.getUid();
 
-                                    if (databaseUserID.equals(Current_User_Id))
-                                    {
+                        if (databaseUserID.equals(Current_User_Id))
+                        {
 
-                                        EditPost.setVisibility(View.VISIBLE);
-                                        DeletePost.setVisibility(View.VISIBLE);
+                            EditPost.setVisibility(View.VISIBLE);
+                            DeletePost.setVisibility(View.VISIBLE);
 
-                                        EditPost.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Toast.makeText(activity, "edit", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                        DeletePost.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v)
-                                            {
-                                                DeleteUserPost();
-//                                                Toast.makeText(activity, "delete", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-
-                                    }
-                                }
-
+                            EditPost.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onCancelled(@NonNull DatabaseError error)
+                                public void onClick(View v) {
+                                    Toast.makeText(activity, "edit", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            DeletePost.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v)
                                 {
+                                    DeleteUserPost();
+//                                                Toast.makeText(activity, "delete", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
-                            SharePost.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Toast.makeText(activity, "share", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                            ReportPost.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Toast.makeText(activity, "report", Toast.LENGTH_SHORT).show();
-                                }
-                            });
                         }
-                    });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error)
+                    {
+                    }
+                });
+
+                SharePost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(activity, "share", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                ReportPost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(activity, "report", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
     }
 
@@ -199,14 +199,14 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             super(itemView);
 
-             date1 = (TextView)itemView.findViewById(R.id.post_date);
-             UserPostImage = (ImageView)itemView.findViewById(R.id.post_image);
-             UserProfileImage = (CircleImageView)itemView.findViewById(R.id.post_profile_image);
-             UserUserName = (TextView)itemView.findViewById(R.id.post_user_name);
-             time1 = (TextView)itemView.findViewById(R.id.post_time);
-             postdescription1 =  (TextView)itemView.findViewById(R.id.post_description);
-             progressBar = itemView.findViewById(R.id.progressbarhome);
-             PopUpMenu = itemView.findViewById(R.id.popupmenu);
+            date1 = (TextView)itemView.findViewById(R.id.post_date);
+            UserPostImage = (ImageView)itemView.findViewById(R.id.post_image);
+            UserProfileImage = (CircleImageView)itemView.findViewById(R.id.post_profile_image);
+            UserUserName = (TextView)itemView.findViewById(R.id.post_user_name);
+            time1 = (TextView)itemView.findViewById(R.id.post_time);
+            postdescription1 =  (TextView)itemView.findViewById(R.id.post_description);
+            progressBar = itemView.findViewById(R.id.progressbarhome);
+            PopUpMenu = itemView.findViewById(R.id.popupmenu);
 
         }
     }

@@ -31,7 +31,7 @@
                 android:fontFamily="@font/pacifico"
                 android:padding="6dp"
                 android:text="Mahammad"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="45dp"
                 android:textColor="@color/blacknavcolar"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -51,8 +51,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/profile1"
-                app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="2dp"
+                app:civ_border_color="@color/blacknavcolar"
+                app:civ_border_width="2.50dp"
                 />
 
 

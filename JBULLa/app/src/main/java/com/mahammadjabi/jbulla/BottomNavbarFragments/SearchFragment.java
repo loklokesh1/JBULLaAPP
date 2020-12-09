@@ -80,9 +80,10 @@ public class SearchFragment extends Fragment {
 
         all_users_ask_help_local = (RecyclerView) view.findViewById(R.id.all_users_ask_help);
         all_users_ask_help_local.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
         linearLayoutManager.setReverseLayout(true);
-        all_users_ask_help_local.setLayoutManager(linearLayoutManager);
+        linearLayoutManager.setStackFromEnd(true);
+        all_users_ask_help_local.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         askhelp = new ArrayList<>();
@@ -90,14 +91,6 @@ public class SearchFragment extends Fragment {
         AskHelpUserRef = FirebaseDatabase.getInstance().getReference().child("AskHelpPosts");
 
 
-
-
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         AskHelpUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -118,6 +111,7 @@ public class SearchFragment extends Fragment {
 
             }
         });
-    }
-}
 
+    }
+
+}

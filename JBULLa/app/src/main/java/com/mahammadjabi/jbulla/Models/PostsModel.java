@@ -3,7 +3,13 @@ package com.mahammadjabi.jbulla.Models;
 public class PostsModel
 {
 
-    public String uid,time,date,postimage,username,description,profileimage;
+    public String uid;
+    public String time;
+    public String date;
+    public String postimage;
+    public String username;
+    public String description;
+    public String profileimage;
 
     public PostsModel()
     {

@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton StatusFloatingButton;
 
 
+
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private DatabaseReference PostsRef;
@@ -103,8 +104,7 @@ public class HomeFragment extends Fragment {
 //                    startActivity(nointernet);
 //                    getActivity().finish();
 //                }
-//            }
-//        });
+ //        });
 //
 //        swipeRefreshLayout.setColorSchemeColors(Color.BLUE,
 //                Color.GREEN,Color.BLACK,Color.RED);
@@ -113,9 +113,14 @@ public class HomeFragment extends Fragment {
 
         all_users_post = (RecyclerView) view.findViewById(R.id.all_users_post);
         all_users_post.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
         linearLayoutManager.setReverseLayout(true);
-        all_users_post.setLayoutManager(linearLayoutManager);
+        linearLayoutManager.setStackFromEnd(true);
+        all_users_post.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        posts = new ArrayList<>();
+        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+
 
 //        popupmenu= view.findViewById(R.id.popupmenu);
 //
@@ -133,9 +138,6 @@ public class HomeFragment extends Fragment {
 //        if (linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
 //        }
 //      if (linearLayoutManager.findLastCompletelyVisibleItemPosition()   == posts.size()-1){}
-
-
-
 
 
         StatusFloatingButton = view.findViewById(R.id.statusfloatingbutton);
@@ -157,9 +159,6 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        posts = new ArrayList<>();
-
-        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
 
         PostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

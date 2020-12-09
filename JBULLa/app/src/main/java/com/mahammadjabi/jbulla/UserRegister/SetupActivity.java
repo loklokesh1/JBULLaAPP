@@ -5,11 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -43,6 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SetupActivity extends AppCompatActivity {
 
     private CircleImageView ProfileImage;
+    private ImageView cameraIcon;
     private EditText UserName,CountryName,FullName;
     private Button SaveProfileInformationButton;
     private ProgressDialog progressDialogImage;
@@ -53,9 +54,12 @@ public class SetupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     String currentUserID ;
     final static int Gallery_Pick = 1;
+//    static int photo = 10;
+    static boolean photo = true;
+    static boolean checkusername = true;
 
     public static final Pattern VALID_USERNAME_REGEX =
-            Pattern.compile("^[a-z0-9_-]{6,20}$", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^[a-zA-Z0-9_.]{7,20}$", Pattern.CASE_INSENSITIVE);
 
 
     @Override
@@ -68,6 +72,7 @@ public class SetupActivity extends AppCompatActivity {
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("ProfileImage");
 
+        cameraIcon = findViewById(R.id.cameraicon);
         ProfileImage = (CircleImageView) findViewById(R.id.logoimg);
         UserName = (EditText) findViewById(R.id.userName);
         FullName = (EditText) findViewById(R.id.fullName);
@@ -106,7 +111,7 @@ public class SetupActivity extends AppCompatActivity {
                     if (dataSnapshot.hasChild("profileimage"))
                     {
                         String image = dataSnapshot.child("profileimage").getValue().toString();
-                        Picasso.with(SetupActivity.this).load(image).placeholder(R.drawable.userprofileadd).into(ProfileImage);
+                        Picasso.with(SetupActivity.this).load(image).placeholder(R.drawable.profile1).into(ProfileImage);
                     }
                     else
                     {
@@ -160,6 +165,9 @@ public class SetupActivity extends AppCompatActivity {
                                         if (task.isSuccessful())
                                         {
 //                                            Toast.makeText(SetupActivity.this, "profile image stored to firebase database successfully", Toast.LENGTH_SHORT).show();
+                                            cameraIcon.setVisibility(View.GONE);
+//                                            photo = 9;
+                                            photo = false;
                                             progressDialogImage.dismiss();
                                         }
                                         else
@@ -185,91 +193,84 @@ public class SetupActivity extends AppCompatActivity {
 
     private void SaveAccountSetupInformation()
     {
+
         final String Username = UserName.getText().toString();
         final String fullname = FullName.getText().toString();
         final String Countryname = CountryName.getText().toString();
 
-        if (ProfileImage != null)
+        if (TextUtils.isEmpty(Username)) {
+            UserName.setError("UserName con't be Empty");
+        }
+        else if (!VALID_USERNAME_REGEX.matcher(UserName.getText().toString()).find()) {
+            UserName.setError("Please Username aleast 7-20 characters\nuse,\"a-z\"\"A-Z\",\"0-9\" ,Ex:_ja_B.iulla9_.");
+        }
+        else if (checkusername)
+        {
+            CheckUsername(Username);
+        }
+        else if (TextUtils.isEmpty(fullname)) {
+            FullName.setError("FullName con't be Empty");
+        }
+        else if (TextUtils.isEmpty(Countryname)) {
+            CountryName.setError("CountryName con't be Empty");
+        }
+        else if (photo)
         {
             Toast.makeText(this, "Please select Profile Image", Toast.LENGTH_LONG).show();
         }
-        if (TextUtils.isEmpty(fullname))
+        else
         {
-            FullName.setError("FullName con't be Empty");
+            progressBar.setVisibility(View.VISIBLE);
+            HashMap userMap = new HashMap();
+            userMap.put("username",Username);
+            userMap.put("fullname",fullname);
+            userMap.put("countryname",Countryname);
+            userMap.put("status","none");
+            userMap.put("gender","none");
+            userMap.put("dob","none");
+            userMap.put("relationship","none");
+            userMap.put("phonenumber","none");
+            userMap.put("email","none");
+            UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful())
+                    {
+                        SendUserToMainActivity();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(SetupActivity.this, "Your Account is created Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        String msg = task.getException().getMessage();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(SetupActivity.this, "Error occured:" + msg, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
-        if (TextUtils.isEmpty(Countryname))
-        {
-            CountryName.setError("CountryName con't be Empty");
-        }
-        if (TextUtils.isEmpty(Username))
-        {
-            UserName.setError("UserName can't be Empty");
-        }
-        else if (Username != null)
-        {
-//            Toast.makeText(this, "checking user name", Toast.LENGTH_SHORT).show();
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
+        /////////////////////
+
+    }
+    private void CheckUsername(String Username)
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
             ref.orderByChild("username").equalTo(Username).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists())
+                    if (snapshot.exists()) {
+                        UserName.setError("Username already exists!!!");
+                    }
+                    else
                     {
-                        UserName.setError("UserName already exists!!!");
+                        checkusername = false;
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
-
-        }
-        else if(!VALID_USERNAME_REGEX.matcher(UserName.getText().toString()).find())
-        {
-            UserName.setError("Please Username aleast 6-20 characters\nuse,\"a-z\",\"0-9\" ,\ndo not use Special characters");
-        }
-        else
-        {
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run()
-            {
-                progressBar.setVisibility(View.VISIBLE);
-                HashMap userMap = new HashMap();
-                userMap.put("username",Username);
-                userMap.put("fullname",fullname);
-                userMap.put("countryname",Countryname);
-                userMap.put("status","none");
-                userMap.put("gender","none");
-                userMap.put("dob","none");
-                userMap.put("relationship","none");
-                userMap.put("phonenumber","none");
-                userMap.put("email","none");
-                UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful())
-                        {
-                            SendUserToMainActivity();
-                            progressBar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(SetupActivity.this, "Your Account is created Successfully", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            String msg = task.getException().getMessage();
-                            progressBar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(SetupActivity.this, "Error occured:" + msg, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-            }
-        },1500);
-
-
-        }
     }
 
     private void SendUserToMainActivity()
