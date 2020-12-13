@@ -138,7 +138,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="210dp"
+            android:layout_marginBottom="230dp"
             android:fontFamily="@font/chicle"
             android:gravity="center"
             android:text="@string/create_text"

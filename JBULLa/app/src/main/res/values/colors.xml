@@ -3,7 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#0097FF</color>
-    <color name="statusbar">#DEDDDD</color>
+    <color name="statusbar">#323232</color>
     <color name="bottomnavColor">#0040ff</color>
     <color name="mainBackground">#d7d7d7</color>
     <color name="backgroundshimmer">#dddddd</color>

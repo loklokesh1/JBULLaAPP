@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment {
 //                    startActivity(nointernet);
 //                    getActivity().finish();
 //                }
- //        });
+        //        });
 //
 //        swipeRefreshLayout.setColorSchemeColors(Color.BLUE,
 //                Color.GREEN,Color.BLACK,Color.RED);
@@ -185,110 +185,3 @@ public class HomeFragment extends Fragment {
 
     }
 }
-//
-//<!--<?xml version="1.0" encoding="utf-8"?>-->
-//<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-//<!--    android:layout_width="match_parent"-->
-//<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-//<!--    android:layout_height="wrap_content">-->
-//
-//<!--    <LinearLayout-->
-//<!--        android:layout_width="match_parent"-->
-//<!--        android:layout_height="wrap_content"-->
-//<!--        android:orientation="vertical"-->
-//<!--        >-->
-//
-//<!--        <LinearLayout-->
-//<!--            android:layout_width="match_parent"-->
-//<!--            android:layout_height="wrap_content"-->
-//<!--            android:layout_marginTop="10dp"-->
-//<!--            android:layout_marginLeft="6dp"-->
-//<!--            android:padding="5dp"-->
-//<!--            android:orientation="horizontal">-->
-//
-//<!--            <de.hdodenhof.circleimageview.CircleImageView-->
-//<!--                android:layout_width="60dp"-->
-//<!--                android:layout_height="60dp"-->
-//<!--                android:src="@drawable/profile1"-->
-//<!--                android:id="@+id/post_profile_image"-->
-//<!--                android:scaleType="centerCrop"-->
-//<!--                android:layout_marginLeft="4dp"-->
-//<!--                />-->
-//<!--            <LinearLayout-->
-//<!--                android:layout_width="match_parent"-->
-//<!--                android:layout_height="wrap_content"-->
-//<!--                android:orientation="vertical">-->
-//<!--                <TextView-->
-//<!--                    android:layout_width="match_parent"-->
-//<!--                    android:layout_height="wrap_content"-->
-//<!--                    android:text="UserName"-->
-//<!--                    android:id="@+id/post_user_name"-->
-//<!--                    android:layout_marginLeft="5dp"-->
-//<!--                    android:layout_marginTop="8dp"-->
-//<!--                    android:textAlignment="textStart"-->
-//<!--                    android:textSize="16sp"-->
-//<!--                    android:textStyle="bold"-->
-//<!--                    android:textColor="@android:color/black"-->
-//<!--                    />-->
-//<!--                <LinearLayout-->
-//<!--                    android:layout_width="match_parent"-->
-//<!--                    android:layout_height="wrap_content"-->
-//<!--                    android:orientation="horizontal"-->
-//<!--                    android:layout_marginLeft="5dp"-->
-//<!--                    android:padding="2dp">-->
-//
-//<!--                    <TextView-->
-//<!--                        android:id="@+id/text2"-->
-//<!--                        android:layout_width="wrap_content"-->
-//<!--                        android:layout_height="wrap_content"-->
-//<!--                        android:text="Post uploaded on "-->
-//<!--                        android:textColor="@android:color/secondary_text_light_nodisable"-->
-//<!--                        android:textSize="13sp"-->
-//<!--                        android:textStyle="bold"-->
-//<!--                        />-->
-//<!--                    <TextView-->
-//<!--                        android:id="@+id/post_date"-->
-//<!--                        android:layout_width="wrap_content"-->
-//<!--                        android:layout_height="wrap_content"-->
-//<!--                        android:text="Date"-->
-//<!--                        android:lines="1"-->
-//<!--                        android:textColor="@android:color/darker_gray"-->
-//<!--                        android:textSize="13sp"-->
-//<!--                        />-->
-//<!--                    <TextView-->
-//<!--                        android:id="@+id/post_time"-->
-//<!--                        android:layout_width="wrap_content"-->
-//<!--                        android:layout_height="wrap_content"-->
-//<!--                        android:text="Time"-->
-//<!--                        android:lines="1"-->
-//<!--                        android:textColor="@android:color/darker_gray"-->
-//<!--                        android:textSize="13sp"-->
-//<!--                        />-->
-//<!--                </LinearLayout>-->
-//
-//<!--            </LinearLayout>-->
-//<!--        </LinearLayout>-->
-//<!--        <TextView-->
-//<!--            android:layout_width="match_parent"-->
-//<!--            android:layout_height="wrap_content"-->
-//<!--            android:text="post description"-->
-//<!--            android:layout_marginTop="2dp"-->
-//<!--            android:id="@+id/postdescription"-->
-//<!--            android:layout_marginLeft="6dp"-->
-//<!--            android:layout_marginRight="6dp"-->
-//<!--            android:padding="3dp"-->
-//<!--            android:textSize="14sp"-->
-//<!--            android:textColor="@android:color/black"-->
-//<!--            />-->
-//<!--        <ImageView-->
-//<!--            android:layout_width="match_parent"-->
-//<!--            android:layout_height="380dp"-->
-//<!--            android:layout_marginTop="4dp"-->
-//<!--            android:layout_margin="3dp"-->
-//<!--            android:adjustViewBounds="true"-->
-//<!--            android:scaleType="centerCrop"-->
-//<!--            android:id="@+id/post_image"/>-->
-//<!--    </LinearLayout>-->
-//
-//
-//<!--</RelativeLayout>-->

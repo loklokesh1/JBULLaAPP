@@ -22,9 +22,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mahammadjabi.jbulla.BottomNavbarFragments.PostDetailsFragment;
 import com.mahammadjabi.jbulla.Models.PostsModel;
 import com.mahammadjabi.jbulla.R;
+import com.ortiz.touchview.TouchImageView;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,8 +42,6 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     List<PostsModel> postsList;
 
-
-    public static ProgressBar progressBar;
 
     public AdapterPosts(List<PostsModel> postsList) {
         this.postsList = postsList;
@@ -74,28 +73,52 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         viewHolderClass.UserUserName.setText(posts.getUsername());
         Picasso.with(viewHolderClass.itemView.getContext())
                 .load(posts.getProfileimage())
-                .into(viewHolderClass.UserProfileImage);
+                .into(viewHolderClass.UserProfileImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        viewHolderClass.progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
         Picasso.with(viewHolderClass.itemView.getContext())
                 .load(posts.getPostimage())
-                .into(viewHolderClass.UserPostImage);
+                .into(viewHolderClass.UserPostImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        viewHolderClass.progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 
         viewHolderClass.UserPostImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                AppCompatActivity activity = (AppCompatActivity)view.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                        new PostDetailsFragment(
-                                posts.getUsername(),
-                                posts.getProfileimage(),
-                                posts.getDate(),
-                                posts.getTime(),
-                                posts.getDescription(),
-                                posts.getPostimage()
-                        ))
-                        .addToBackStack(null).commit();
+//                AppCompatActivity activity = (AppCompatActivity)view.getContext();
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
+//                        new PostDetailsFragment(
+//                                posts.getUsername(),
+//                                posts.getProfileimage(),
+//                                posts.getDate(),
+//                                posts.getTime(),
+//                                posts.getDescription(),
+//                                posts.getPostimage()
+//                        ))
+//                        .addToBackStack(null).commit();
+
+                viewHolderClass.UserPostImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+//                viewHolderClass.UserPostImage.setZoom(1000,50,50, ImageView.ScaleType.CENTER_INSIDE);
             }
         });
+
         viewHolderClass.PopUpMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -189,9 +212,11 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView UserUserName;
         TextView time1;
         TextView postdescription1;
-        ImageView UserPostImage;
+//        ImageView UserPostImage;
+        TouchImageView UserPostImage;
         ImageView PopUpMenu;
         CircleImageView UserProfileImage;
+        ProgressBar progressBar;
 
 
         public ViewHolderClass(@NonNull View itemView) {
@@ -200,7 +225,7 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(itemView);
 
             date1 = (TextView)itemView.findViewById(R.id.post_date);
-            UserPostImage = (ImageView)itemView.findViewById(R.id.post_image);
+            UserPostImage = (TouchImageView)itemView.findViewById(R.id.post_image);
             UserProfileImage = (CircleImageView)itemView.findViewById(R.id.post_profile_image);
             UserUserName = (TextView)itemView.findViewById(R.id.post_user_name);
             time1 = (TextView)itemView.findViewById(R.id.post_time);

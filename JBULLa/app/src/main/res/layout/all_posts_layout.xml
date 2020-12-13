@@ -210,14 +210,22 @@
 <!--            >-->
 
 
-        <!--changed ImageView To ZoomageView  -->
-        <ImageView
+        <!--changed ImageView To Touchimage view  -->
+        <com.ortiz.touchview.TouchImageView
             android:id="@+id/post_image"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:visibility="visible"
             android:scaleType="centerCrop"
+            android:scrollbars="vertical|horizontal"
              />
+        <ProgressBar
+            android:id="@+id/progressbarhome"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            />
 <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
 
 
