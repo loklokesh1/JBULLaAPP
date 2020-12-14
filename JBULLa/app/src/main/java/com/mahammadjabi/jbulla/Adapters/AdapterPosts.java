@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mahammadjabi.jbulla.Models.PostsModel;
 import com.mahammadjabi.jbulla.R;
-import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -98,26 +98,41 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }
                 });
 
-        viewHolderClass.UserPostImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-//                AppCompatActivity activity = (AppCompatActivity)view.getContext();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
-//                        new PostDetailsFragment(
-//                                posts.getUsername(),
-//                                posts.getProfileimage(),
-//                                posts.getDate(),
-//                                posts.getTime(),
-//                                posts.getDescription(),
-//                                posts.getPostimage()
-//                        ))
-//                        .addToBackStack(null).commit();
-
-                viewHolderClass.UserPostImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-//                viewHolderClass.UserPostImage.setZoom(1000,50,50, ImageView.ScaleType.CENTER_INSIDE);
-            }
-        });
+//        viewHolderClass.UserPostImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view)
+//            {
+//                final AppCompatActivity activity = (AppCompatActivity)view.getContext();
+////                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
+////                        new PostDetailsFragment(
+////                                posts.getUsername(),
+////                                posts.getProfileimage(),
+////                                posts.getDate(),
+////                                posts.getTime(),
+////                                posts.getDescription(),
+////                                posts.getPostimage()
+////                        ))
+////                        .addToBackStack(null).commit();
+//
+////                viewHolderClass.UserPostImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+////                viewHolderClass.UserPostImage.getLayoutParams().height=500;
+////                viewHolderClass.UserPostImage.requestLayout();
+//
+////                viewHolderClass.UserPostImage.setOnClickListener(new View.OnClickListener() {
+////                    @Override
+////                    public void onClick(View v) {
+////                        AlertDialog.Builder mBuilder = new AlertDialog.Builder(v.getContext());
+////                        View mView = activity.getLayoutInflater().inflate(R.layout.photoview_full_image,null );
+////                        PhotoView photoView = mView.findViewById(R.id.imageviewfull);
+////                        photoView.setImageResource(R.drawable.profile1);
+////                        mBuilder.setView(mView);
+////                        AlertDialog mDialog = mBuilder.create();
+////                        mDialog.show();
+////
+////                    }
+////                });
+//            }
+//        });
 
         viewHolderClass.PopUpMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,7 +228,8 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView time1;
         TextView postdescription1;
 //        ImageView UserPostImage;
-        TouchImageView UserPostImage;
+//        TouchImageView UserPostImage;
+        PhotoView UserPostImage;
         ImageView PopUpMenu;
         CircleImageView UserProfileImage;
         ProgressBar progressBar;
@@ -225,7 +241,7 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(itemView);
 
             date1 = (TextView)itemView.findViewById(R.id.post_date);
-            UserPostImage = (TouchImageView)itemView.findViewById(R.id.post_image);
+            UserPostImage = (PhotoView) itemView.findViewById(R.id.post_image);
             UserProfileImage = (CircleImageView)itemView.findViewById(R.id.post_profile_image);
             UserUserName = (TextView)itemView.findViewById(R.id.post_user_name);
             time1 = (TextView)itemView.findViewById(R.id.post_time);

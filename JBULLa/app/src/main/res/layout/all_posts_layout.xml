@@ -211,24 +211,37 @@
 
 
         <!--changed ImageView To Touchimage view  -->
-        <com.ortiz.touchview.TouchImageView
+<!--        <com.ortiz.touchview.TouchImageView-->
+<!--            android:id="@+id/post_image"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="350dp"-->
+<!--            android:visibility="visible"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:scrollbars="vertical|horizontal"-->
+<!--             />-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/post_image"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="400dp"
             android:visibility="visible"
             android:scaleType="centerCrop"
-            android:scrollbars="vertical|horizontal"
-             />
+            tools:ignore="MissingPrefix"
+            />
+
         <ProgressBar
             android:id="@+id/progressbarhome"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_gravity="center"
             android:visibility="visible"
-            />
+            android:layout_centerInParent="true"
+             />
 <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
 
-
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

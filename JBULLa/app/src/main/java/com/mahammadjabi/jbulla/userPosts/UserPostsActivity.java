@@ -517,7 +517,7 @@ public class UserPostsActivity extends AppCompatActivity {
     private EditText PostDescription,AskTime,AskAmount;
     private ProgressDialog loadingBar;
     private ImageView SelectPostImage;
-    private ImageView SelectPostImage1;
+    private ImageView SelectPostImage1,rightsideicon1,rightsideicon2;
 
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef, PostsRef,AskHelpPostsRef;
@@ -566,6 +566,9 @@ public class UserPostsActivity extends AppCompatActivity {
         SharePostText = findViewById(R.id.share_post_local_text);
         AmountTime = findViewById(R.id.amount_time);
 
+        rightsideicon1=findViewById(R.id.sharerightsideicon1);
+        rightsideicon2=findViewById(R.id.sharerightsideicon2);
+
         AskAmount = findViewById(R.id.amount);
         AskTime = findViewById(R.id.timetocomplete);
 
@@ -588,6 +591,8 @@ public class UserPostsActivity extends AppCompatActivity {
                 SharePostLocal.setBackgroundResource(R.drawable.btn);
                 AskHelpLocal.setTextColor(getResources().getColor(R.color.blacknavcolar));
                 SharePostLocal.setTextColor(getResources().getColor(R.color.white));
+                rightsideicon1.setVisibility(View.VISIBLE);
+                rightsideicon2.setVisibility(View.GONE);
 
 
             }
@@ -612,6 +617,9 @@ public class UserPostsActivity extends AppCompatActivity {
                 SharePostLocal.setBackgroundResource(R.drawable.text_logo);
                 SharePostLocal.setTextColor(getResources().getColor(R.color.blacknavcolar));
                 AskHelpLocal.setTextColor(getResources().getColor(R.color.white));
+
+                rightsideicon1.setVisibility(View.GONE);
+                rightsideicon2.setVisibility(View.VISIBLE);
 
                 AskHelpLocalButton.setOnClickListener(new View.OnClickListener() {
                     @Override
