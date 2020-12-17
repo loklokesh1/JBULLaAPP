@@ -144,6 +144,7 @@ public class SetupActivity extends AppCompatActivity {
                 progressDialogImage.setTitle("Please wait...");
                 progressDialogImage.setMessage("Loading your image...");
                 progressDialogImage.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialogImage.setCancelable(false);
                 progressDialogImage.show();
 
                 StorageReference filePath = UserProfileImageRef.child(currentUserID + ".jpg");

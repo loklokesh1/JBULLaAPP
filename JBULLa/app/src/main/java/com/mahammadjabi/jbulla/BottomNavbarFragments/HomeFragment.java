@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment {
 
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ProgressBar progressBar;
 
     private DatabaseReference PostsRef;
 
@@ -111,6 +113,16 @@ public class HomeFragment extends Fragment {
 
 
 
+        progressBar = view.findViewById(R.id.progressbarrecycle);
+        Handler handler = new Handler ();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        },5000);
+
+
         all_users_post = (RecyclerView) view.findViewById(R.id.all_users_post);
         all_users_post.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
@@ -175,6 +187,7 @@ public class HomeFragment extends Fragment {
                 adapterPosts = new AdapterPosts(posts);
                 all_users_post.setAdapter(adapterPosts);
                 all_users_post.invalidateItemDecorations();
+                adapterPosts.notifyDataSetChanged();
 
             }
 

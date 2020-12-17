@@ -1,9 +1,11 @@
 package com.mahammadjabi.jbulla.BottomNavbarFragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +35,8 @@ public class SearchFragment extends Fragment {
 
     List<AskHelpUsersModel> askhelp;
     AdapterAskHelpUsers adapterAskHelpUsers;
+
+    private ProgressBar progressBarAsk;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,6 +81,16 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
+        progressBarAsk = view.findViewById(R.id.progressbarrecycleask);
+        Handler handler = new Handler ();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBarAsk.setVisibility(View.GONE);
+            }
+        },1500);
 
         all_users_ask_help_local = (RecyclerView) view.findViewById(R.id.all_users_ask_help);
         all_users_ask_help_local.setHasFixedSize(true);

@@ -16,13 +16,18 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.mahammadjabi.jbulla.Models.PostsModel;
 import com.mahammadjabi.jbulla.R;
 import com.squareup.picasso.Callback;
@@ -37,11 +42,10 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private LinearLayout EditPost,DeletePost,SharePost,ReportPost;
     private DatabaseReference ClickPostRef;
     private FirebaseAuth mAuth;
-    private String Current_User_Id,databaseUserID;
+    private String Current_User_Id,databaseUserID,CurrentImageUrl,CurrentPostUrl;
     private AlphaAnimation buttonclick;
 
     List<PostsModel> postsList;
-
 
     public AdapterPosts(List<PostsModel> postsList) {
         this.postsList = postsList;
@@ -73,17 +77,7 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         viewHolderClass.UserUserName.setText(posts.getUsername());
         Picasso.with(viewHolderClass.itemView.getContext())
                 .load(posts.getProfileimage())
-                .into(viewHolderClass.UserProfileImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        viewHolderClass.progressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-                });
+                .into(viewHolderClass.UserProfileImage);
         Picasso.with(viewHolderClass.itemView.getContext())
                 .load(posts.getPostimage())
                 .into(viewHolderClass.UserPostImage, new Callback() {
@@ -145,10 +139,11 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 DeletePost = view.findViewById(R.id.deletepost);
                 SharePost = view.findViewById(R.id.sharepost);
                 ReportPost = view.findViewById(R.id.reportpost);
-                BottomSheetDialog dialog = new BottomSheetDialog(activity);
-                dialog.setContentView(view);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.show();
+                final BottomSheetDialog bottomdialog = new BottomSheetDialog(activity);
+                bottomdialog.setContentView(view);
+                bottomdialog.setCanceledOnTouchOutside(true);
+                bottomdialog.show();
+
 
                 buttonclick = new AlphaAnimation(1F,0.8F);
                 mAuth = FirebaseAuth.getInstance();
@@ -164,6 +159,8 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         if (databaseUserID.equals(Current_User_Id))
                         {
 
+
+
                             EditPost.setVisibility(View.VISIBLE);
                             DeletePost.setVisibility(View.VISIBLE);
 
@@ -177,7 +174,11 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                 @Override
                                 public void onClick(View v)
                                 {
-                                    DeleteUserPost();
+
+                                    CurrentPostUrl = posts.getPostid();
+                                    CurrentImageUrl  = posts.getPostimage();
+                                    DeleteUserPost(CurrentImageUrl,activity,CurrentPostUrl);
+
 //                                                Toast.makeText(activity, "delete", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -209,8 +210,42 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     }
 
-    private void DeleteUserPost()
+    private void DeleteUserPost(final String currentImageUrl, final AppCompatActivity activity, final String currentPostUrl)
     {
+
+        StorageReference picRef = FirebaseStorage.getInstance().getReferenceFromUrl(currentImageUrl);
+        picRef.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid)
+                    {
+                        Query fquery = FirebaseDatabase.getInstance().getReference("Posts").orderByChild("postid").equalTo(currentPostUrl);
+                        fquery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot ds: snapshot.getChildren())
+                                {
+                                    ds.getRef().removeValue();
+                                }
+                                Toast.makeText(activity, "Post Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
+                                postsList.remove(currentImageUrl);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
         ClickPostRef.removeValue();
     }
 

@@ -10,13 +10,22 @@ public class PostsModel
     public String username;
     public String description;
     public String profileimage;
+    public String postid;
 
     public PostsModel()
     {
 
     }
 
-    public PostsModel(String uid, String time, String date, String postimage, String username, String description, String profileimage) {
+    public String getPostid() {
+        return postid;
+    }
+
+    public void setPostid(String postid) {
+        this.postid = postid;
+    }
+
+    public PostsModel(String uid, String time, String date, String postimage, String username, String description, String profileimage, String postid) {
         this.uid = uid;
         this.time = time;
         this.date = date;
@@ -24,6 +33,7 @@ public class PostsModel
         this.username = username;
         this.description = description;
         this.profileimage = profileimage;
+        this.postid = postid;
     }
 
     public String getUid() {

@@ -515,7 +515,7 @@ public class UserPostsActivity extends AppCompatActivity {
     private TextView UserName;
     private Button SharePostButton;
     private EditText PostDescription,AskTime,AskAmount;
-    private ProgressDialog loadingBar;
+    private ProgressDialog loadingBar,loadingBarAsk;
     private ImageView SelectPostImage;
     private ImageView SelectPostImage1,rightsideicon1,rightsideicon2;
 
@@ -553,6 +553,7 @@ public class UserPostsActivity extends AppCompatActivity {
         UserName = (TextView) findViewById(R.id.click_post_user_name);
 
         loadingBar = new ProgressDialog(this);
+        loadingBarAsk = new ProgressDialog(this);
 
         SelectPostImage = (ImageView) findViewById(R.id.click_post_image);
         SelectPostImage1 = (ImageView) findViewById(R.id.click_post_image1);
@@ -724,9 +725,10 @@ public class UserPostsActivity extends AppCompatActivity {
 
     private void AskUserPost()
     {
-        loadingBar.setMessage("Sharing post...");
-        loadingBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        loadingBar.show();
+        loadingBarAsk.setMessage("Sharing post...");
+        loadingBarAsk.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        loadingBarAsk.setCancelable(false);
+        loadingBarAsk.show();
 
         SaveingAskHelpUserPostInformationToDatabase();
 
@@ -735,11 +737,11 @@ public class UserPostsActivity extends AppCompatActivity {
     private void SaveingAskHelpUserPostInformationToDatabase()
     {
         Calendar calFordDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy", Locale.ENGLISH);
+        final SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         saveCurrentDate = currentDate.format(calFordDate.getTime());
 
         Calendar calFordTime = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm");
         saveCurrentTime = currentTime.format(calFordDate.getTime());
 
         postRandomName = saveCurrentDate + saveCurrentTime;
@@ -760,6 +762,9 @@ public class UserPostsActivity extends AppCompatActivity {
                 postMap.put("username",UserUserName);
                 postMap.put("asktime",asktime);
                 postMap.put("askamount",askamount);
+                postMap.put("postid",currentUserID + postRandomName);
+
+
 
                 AskHelpPostsRef.child(currentUserID + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
                     @Override
@@ -810,6 +815,7 @@ public class UserPostsActivity extends AppCompatActivity {
     {
         loadingBar.setMessage("Uploading post...");
         loadingBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        loadingBar.setCancelable(false);
         loadingBar.show();
         if (ImageUri !=null && postdescription != null)
         {
@@ -824,7 +830,7 @@ public class UserPostsActivity extends AppCompatActivity {
         saveCurrentDate = currentDate.format(calFordDate.getTime());
 
         Calendar calFordTime = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm");
         saveCurrentTime = currentTime.format(calFordDate.getTime());
 
         postRandomName = saveCurrentDate + saveCurrentTime;
@@ -884,6 +890,7 @@ public class UserPostsActivity extends AppCompatActivity {
                     postMap.put("postimage",downloadUrl);
                     postMap.put("profileimage",UserProfile);
                     postMap.put("username",UserUserName);
+                    postMap.put("postid",currentUserID + postRandomName);
 
                     PostsRef.child(currentUserID + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
                         @Override
