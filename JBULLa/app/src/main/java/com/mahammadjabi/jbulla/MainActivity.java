@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -29,7 +28,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -422,30 +420,31 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onBackPressed() {
+        finish();
         // to show the snackbar
-        if (doublePressToExit)
-        {
-            super.onBackPressed();
-            return;
-        }
-        this.doublePressToExit = true;
-        Snackbar.make(this.getWindow().getDecorView().findViewById(R.id.drawer_layout),"Press back again to exit Bol app.",Snackbar.LENGTH_LONG).show();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.blacknavcolar));
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    changeNavBarColor();
-                }
-            },3200);
-        }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doublePressToExit = false;
-            }
-        },2000);
+//        if (doublePressToExit)
+//        {
+//            super.onBackPressed();
+//            return;
+//        }
+//        this.doublePressToExit = true;
+//        Snackbar.make(this.getWindow().getDecorView().findViewById(R.id.drawer_layout),"Press back again to exit Bol app.",Snackbar.LENGTH_LONG).show();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
+//            getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.blacknavcolar));
+//
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    changeNavBarColor();
+//                }
+//            },3200);
+//        }
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                doublePressToExit = false;
+//            }
+//        },2000);
 
 //        alert dialog to box to exit the app
 //        new AlertDialog.Builder(this)

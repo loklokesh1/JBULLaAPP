@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.mahammadjabi.jbulla.BottomNavbarFragments.SharePostFragment;
 import com.mahammadjabi.jbulla.Models.PostsModel;
 import com.mahammadjabi.jbulla.R;
 import com.squareup.picasso.Callback;
@@ -57,11 +58,10 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
 
-//        progressBar.setVisibility(View.VISIBLE);
+//      progressBar.setVisibility(View.VISIBLE);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_posts_layout,parent,false);
         ViewHolderClass viewHolderClass = new ViewHolderClass(view);
         return viewHolderClass;
-
 
     }
     @Override
@@ -128,6 +128,8 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //            }
 //        });
 
+
+        //start popup to show options to the edit, delete, share, report
         viewHolderClass.PopUpMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -142,10 +144,9 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 final BottomSheetDialog bottomdialog = new BottomSheetDialog(activity);
                 bottomdialog.setContentView(view);
                 bottomdialog.setCanceledOnTouchOutside(true);
+                bottomdialog.setDismissWithAnimation(true);
                 bottomdialog.show();
 
-
-                buttonclick = new AlphaAnimation(1F,0.8F);
                 mAuth = FirebaseAuth.getInstance();
                 Current_User_Id = mAuth.getCurrentUser().getUid();
                 databaseUserID = posts.getUid();
@@ -154,12 +155,10 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                     {
-//                                    databaseUserID = posts.getUid();
+//                      databaseUserID = posts.getUid();
 
                         if (databaseUserID.equals(Current_User_Id))
                         {
-
-
 
                             EditPost.setVisibility(View.VISIBLE);
                             DeletePost.setVisibility(View.VISIBLE);
@@ -177,9 +176,8 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                                     CurrentPostUrl = posts.getPostid();
                                     CurrentImageUrl  = posts.getPostimage();
-                                    DeleteUserPost(CurrentImageUrl,activity,CurrentPostUrl);
-
-//                                                Toast.makeText(activity, "delete", Toast.LENGTH_SHORT).show();
+                                    DeleteUserPost(CurrentImageUrl,activity,CurrentPostUrl,bottomdialog);
+//                                  Toast.makeText(activity, "delete", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -196,6 +194,18 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(activity, "share", Toast.LENGTH_SHORT).show();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                        new SharePostFragment(
+                                posts.getUsername(),
+                                posts.getProfileimage(),
+                                posts.getDate(),
+                                posts.getTime(),
+                                posts.getDescription(),
+                                posts.getPostimage(),
+                                posts.getPostid()
+                        ))
+                        .addToBackStack(null).commit();
+                        bottomdialog.dismiss();
                     }
                 });
 
@@ -207,10 +217,12 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 });
             }
         });
+        //ended popup memu
 
     }
 
-    private void DeleteUserPost(final String currentImageUrl, final AppCompatActivity activity, final String currentPostUrl)
+    private void DeleteUserPost(final String currentImageUrl, final AppCompatActivity activity,
+                                final String currentPostUrl, final BottomSheetDialog bottomdialog)
     {
 
         StorageReference picRef = FirebaseStorage.getInstance().getReferenceFromUrl(currentImageUrl);
@@ -230,6 +242,7 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                 Toast.makeText(activity, "Post Deleted Successfully", Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
                                 postsList.remove(currentImageUrl);
+                                bottomdialog.dismiss();
                             }
 
                             @Override
@@ -262,12 +275,11 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView UserUserName;
         TextView time1;
         TextView postdescription1;
-//        ImageView UserPostImage;
-//        TouchImageView UserPostImage;
         PhotoView UserPostImage;
         ImageView PopUpMenu;
         CircleImageView UserProfileImage;
         ProgressBar progressBar;
+
 
 
         public ViewHolderClass(@NonNull View itemView) {
@@ -283,6 +295,7 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             postdescription1 =  (TextView)itemView.findViewById(R.id.post_description);
             progressBar = itemView.findViewById(R.id.progressbarhome);
             PopUpMenu = itemView.findViewById(R.id.popupmenu);
+
 
         }
     }

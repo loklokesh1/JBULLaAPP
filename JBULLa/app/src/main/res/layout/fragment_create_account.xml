@@ -46,7 +46,8 @@
             android:textColorHint="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo" />
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            android:autofillHints="true" />
 
         <EditText
             android:id="@+id/phone"
@@ -57,7 +58,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/text_logo"
-            android:drawableLeft="@drawable/phone"
+            android:drawableStart="@drawable/phone"
             android:drawablePadding="3dp"
             android:drawableTint="@color/bottomnavColor"
             android:ems="10"
@@ -67,7 +68,8 @@
             android:textColorHint="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            android:autofillHints="true" />
 
         <EditText
             android:id="@+id/password"
