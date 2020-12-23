@@ -207,8 +207,8 @@ public class SharePostFragment  extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        SharePostRef = FirebaseDatabase.getInstance().getReference().child("SharePostUserData");
-//        SharePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+//        SharePostRef = FirebaseDatabase.getInstance().getReference().child("SharePostUserData");
+        SharePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         UserPostImageRef = FirebaseStorage.getInstance().getReference();
 
         progressBarsharepost= view.findViewById(R.id.progressbarsharepost);
@@ -280,8 +280,8 @@ public class SharePostFragment  extends Fragment {
             {
                 loadingBarShare.setMessage("Sharing post...");
                 loadingBarShare.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                loadingBarShare.setCancelable(false);
                 loadingBarShare.show();
+                loadingBarShare.setCancelable(false);
 
                 postshatedes =PostShareDes.getText().toString();
 

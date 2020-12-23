@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private RecyclerView all_users_post,all_users_share_post;
+    private RecyclerView all_users_post;
     private FloatingActionButton StatusFloatingButton;
 
 
@@ -129,15 +129,6 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         all_users_post.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        all_users_share_post = view.findViewById(R.id.all_users_post);
-        all_users_share_post.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
-        linearLayoutManager1.setReverseLayout(true);
-        linearLayoutManager1.setStackFromEnd(true);
-        all_users_share_post.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         posts = new ArrayList<>();
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
