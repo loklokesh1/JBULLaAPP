@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -96,6 +101,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/menudetails"
                     android:padding="2dp"
+                    android:layout_marginStart="35dp"
                     android:visibility="visible"
                     />
             </LinearLayout>
@@ -110,25 +116,23 @@
         android:layout_height="wrap_content"
         android:text="Post description.."
         android:fontFamily="@font/salsa"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="2dp"
         android:visibility="visible"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:padding="3dp"
+        android:layout_marginRight="40dp"
         android:textColor="@android:color/black"
         android:textSize="14sp" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:layout_marginLeft="6dp"
-            android:padding="5dp"
+            android:paddingStart="10dp"
+            android:padding="4dp"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -209,10 +213,7 @@
                         />
 
                 </LinearLayout>
-
             </LinearLayout>
-
-
         </LinearLayout>
 
         <TextView
@@ -221,12 +222,11 @@
             android:layout_height="wrap_content"
             android:text="Post description.."
             android:fontFamily="@font/salsa"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="2dp"
             android:visibility="visible"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"
-            android:padding="3dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="2dp"
             android:textColor="@android:color/black"
             android:textSize="14sp"
 
@@ -236,14 +236,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/share_post_image"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:visibility="visible"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:scaleType="centerCrop"
+                android:layout_marginEnd="6dp"
+                android:layout_marginStart="6dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
                 tools:ignore="MissingPrefix"
 
                 />
@@ -252,74 +254,113 @@
                 android:id="@+id/shareprogressbarhome"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:visibility="gone"
-                android:layout_centerInParent="true"
-                />
-            <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <com.github.chrisbanes.photoview.PhotoView
-                android:id="@+id/post_image"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
                 android:visibility="visible"
-                android:scaleType="centerCrop"
-                tools:ignore="MissingPrefix"
-                />
-
-            <ProgressBar
-                android:id="@+id/progressbarimage"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:visibility="gone"
                 android:layout_centerInParent="true"
                 />
-            <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
 
         </RelativeLayout>
+
+
         <LinearLayout
+            android:id="@+id/sharelikelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
+            >
             <ImageView
-                android:id="@+id/like_button"
+                android:id="@+id/like_button1"
                 android:layout_width="30dp"
                 android:layout_height="35dp"
+                android:layout_marginStart="10dp"
                 android:backgroundTint="@android:color/white"
                 android:layout_gravity="center_vertical"
+                android:visibility="visible"
                 android:src="@drawable/likeicon"/>
 
             <TextView
-                android:id="@+id/display_no_of_likes"
+                android:id="@+id/display_no_of_likes1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="143541 likes"
                 android:fontFamily="@font/salsa"
                 android:layout_gravity="center_vertical"
                 android:padding="15dp"
+                android:visibility="visible"
                 android:textColor="@android:color/black"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:textStyle="bold"/>
 
             <ImageButton
-                android:id="@+id/comment_button"
+                android:id="@+id/comment_button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
+                android:layout_marginStart="165dp"
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@android:color/white"
-                android:baselineAlignBottom="true"
                 android:src="@drawable/commentsicon"/>
-
-
         </LinearLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/post_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:visibility="visible"
+            android:adjustViewBounds="true"
+            tools:ignore="MissingPrefix" />
+
+        <ProgressBar
+            android:id="@+id/progressbarimage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:visibility="visible"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/normalpostlikelayout"
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:id="@+id/like_button"
+                    android:layout_width="30dp"
+                    android:layout_height="35dp"
+                    android:backgroundTint="@android:color/white"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/likeicon"/>
+
+                <TextView
+                    android:id="@+id/display_no_of_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.5k likes"
+                    android:fontFamily="@font/salsa"
+                    android:layout_gravity="center_vertical"
+                    android:padding="15dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/comment_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="200dp"
+                    android:layout_gravity="center_vertical"
+                    android:backgroundTint="@android:color/white"
+                    android:src="@drawable/commentsicon"/>
+
+            </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

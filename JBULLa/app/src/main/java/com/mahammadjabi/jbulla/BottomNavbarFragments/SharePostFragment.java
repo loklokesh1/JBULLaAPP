@@ -66,7 +66,7 @@ public class SharePostFragment  extends Fragment {
 
 
     private String saveCurrentDate,saveCurrentTime,postRandomName;
-    private String UserUserNameS,UserProfileS,postshatedes, SharePostId;
+    private String UserUserNameS,UserProfileS,postshatedes, SharePostId,   datesh,timesh;
     private String mParam1;
     private String mParam2;
 
@@ -77,17 +77,17 @@ public class SharePostFragment  extends Fragment {
     public SharePostFragment() {
     }
 
-    public SharePostFragment(String username,String profileimage,String date,String time,String description,String postimage,String postid)
+    public SharePostFragment(String username,String profileimage,String date,String time,
+                             String description,String postimage,String postid)
     {
         this.username=username;
         this.profileimage=profileimage;
-        this.date=date;
         this.time=time;
+        this.date=date;
         this.description=description;
         this.postimage=postimage;
         this.postid = postid;
         SharePostId =  postid;
-
     }
 
 
@@ -112,7 +112,6 @@ public class SharePostFragment  extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_share_post, container, false);
 //
 //        mAuth = FirebaseAuth.getInstance();
@@ -207,7 +206,6 @@ public class SharePostFragment  extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-//        SharePostRef = FirebaseDatabase.getInstance().getReference().child("SharePostUserData");
         SharePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         UserPostImageRef = FirebaseStorage.getInstance().getReference();
 
@@ -289,9 +287,6 @@ public class SharePostFragment  extends Fragment {
 
             }
         });
-
-
-
     }
 
     private void SaveingShareUserPostInformationToDatabase()
@@ -313,7 +308,6 @@ public class SharePostFragment  extends Fragment {
                 UserUserNameS = datasnapshot.child("username").getValue().toString();
                 UserProfileS = datasnapshot.child("profileimage").getValue().toString();
 
-
                 HashMap shareMap = new HashMap();
                 shareMap.put("uid",currentUserID);
                 shareMap.put("date",saveCurrentDate);
@@ -323,17 +317,14 @@ public class SharePostFragment  extends Fragment {
                 shareMap.put("username",UserUserNameS);
                 shareMap.put("postid",SharePostId);
 
-                shareMap.put("sharedata",date);
+                shareMap.put("sharedate",date);
                 shareMap.put("sharetime",time);
                 shareMap.put("shareusername",username);
                 shareMap.put("shareprofileimage",profileimage);
                 shareMap.put("sharepostdescription",description);
                 shareMap.put("sharepostimage",postimage);
 
-
                 shareMap.put("sharepostid",currentUserID + postRandomName);
-
-
 
                 SharePostRef.child(currentUserID + postRandomName).updateChildren(shareMap).addOnCompleteListener(new OnCompleteListener() {
                     @Override

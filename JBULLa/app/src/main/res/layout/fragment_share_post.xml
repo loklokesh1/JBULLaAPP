@@ -132,10 +132,11 @@
         android:fontFamily="@font/salsa"
         android:layout_marginTop="6dp"
         android:visibility="visible"
+        android:background="@drawable/text_logo"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:padding="3dp"
+        android:padding="10dp"
         android:textColor="@android:color/black"
         android:textSize="14sp" />
     <LinearLayout
@@ -265,45 +266,7 @@
             <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
 
         </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
 
-            <ImageView
-                android:id="@+id/like_button"
-                android:layout_width="30dp"
-                android:layout_height="35dp"
-                android:backgroundTint="@android:color/white"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/likeicon"/>
-
-            <TextView
-                android:id="@+id/display_no_of_likes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="143541 likes"
-                android:fontFamily="@font/salsa"
-                android:layout_gravity="center_vertical"
-                android:padding="15dp"
-                android:textColor="@android:color/black"
-                android:textSize="14dp"
-                android:textStyle="bold"/>
-
-            <ImageButton
-                android:id="@+id/comment_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
-                android:layout_gravity="center_vertical"
-                android:backgroundTint="@android:color/white"
-                android:baselineAlignBottom="true"
-                android:src="@drawable/commentsicon"/>
-
-
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
 </ScrollView>
