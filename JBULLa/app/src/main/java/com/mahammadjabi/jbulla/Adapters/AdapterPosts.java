@@ -28,6 +28,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.like.LikeButton;
+import com.mahammadjabi.jbulla.BottomNavbarFragments.EditPostFragment;
 import com.mahammadjabi.jbulla.BottomNavbarFragments.SharePostFragment;
 import com.mahammadjabi.jbulla.Models.PostsModel;
 import com.mahammadjabi.jbulla.R;
@@ -40,7 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private LinearLayout EditPost, DeletePost, SharePost, ReportPost;
+    private LinearLayout EditPost, DeletePost, SharePost, ReportPost,SavePost;
     private DatabaseReference ClickPostRef;
     private FirebaseAuth mAuth;
     private String Current_User_Id, databaseUserID, CurrentImageUrl, CurrentPostUrl;
@@ -123,9 +125,7 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .into(viewHolderClass.UserProfileImage);
 
         }
-
-
-        ////////
+        //share fields start
         if (posts.getSharetime() == null) {
             viewHolderClass.sharetime.setVisibility(View.GONE);
             viewHolderClass.ShareLikeLayout.setVisibility(View.GONE);
@@ -161,6 +161,7 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (posts.getShareprofileimage() == null) {
             viewHolderClass.shareprofileimage.setVisibility(View.GONE);
         } else {
+            viewHolderClass.shareprofileimage.setVisibility(View.VISIBLE);
             Picasso.with(viewHolderClass.itemView.getContext())
                     .load(posts.getShareprofileimage())
                     .into(viewHolderClass.shareprofileimage);
@@ -187,6 +188,12 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         }
                     });
         }
+
+//        if(posts.getSharepostid() != null)
+//        {
+//            viewHolderClass.PopUpMenu.setVisibility(View.GONE);
+//        }
+        // share fields end
 
 //        viewHolderClass.UserPostImage.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -224,8 +231,45 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //            }
 //        });
 
+        //like button code start
+//        viewHolderClass.LikeThumbButton.setOnLikeListener(new OnLikeListener() {
+//            @Override
+//            public void liked(final LikeButton likeButton) {
+//                viewHolderClass.LikeDisplayText.setText("1");
+//                final String postId = posts.getPostid();
+//                final DatabaseReference LikesRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("likes");
+//                LikesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        long numLikes = 0;
+//                        if (snapshot.exists()) {
+//                            numLikes = snapshot.getValue(Long.class);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//
+//            }
+
+//            @Override
+//            public void unLiked(LikeButton likeButton)
+//            {
+//                viewHolderClass.LikeDisplayText.setText("0");
+//
+//            }
+//        });
+//
+//        String postid = posts.getPostid();
+//        String currentuserid = posts.getUid();
+//        displayNumberOfLikes(postid,currentuserid);
+        //like button code end
 
         //start popup to show options to the edit, delete, share, report
+
         viewHolderClass.PopUpMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,6 +280,7 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 DeletePost = view.findViewById(R.id.deletepost);
                 SharePost = view.findViewById(R.id.sharepost);
                 ReportPost = view.findViewById(R.id.reportpost);
+                SavePost = view.findViewById(R.id.savepost);
                 final BottomSheetDialog bottomdialog = new BottomSheetDialog(activity);
                 bottomdialog.setContentView(view);
                 bottomdialog.setCanceledOnTouchOutside(true);
@@ -259,7 +304,27 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             EditPost.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(activity, "edit", Toast.LENGTH_SHORT).show();
+                                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                                            new EditPostFragment(
+                                                    posts.getUsername(),
+                                                    posts.getProfileimage(),
+                                                    posts.getDate(),
+                                                    posts.getTime(),
+                                                    posts.getDescription(),
+                                                    posts.getPostimage(),
+                                                    posts.getPostid(),
+
+                                                    posts.getShareusername(),
+                                                    posts.getShareprofileimage(),
+                                                    posts.getSharedate(),
+                                                    posts.getSharetime(),
+                                                    posts.getSharepostdescription(),
+                                                    posts.getSharepostimage(),
+                                                    posts.getSharepostid()
+                                            ))
+                                            .addToBackStack(null).commit();
+
+                                    bottomdialog.dismiss();
                                 }
                             });
                             DeletePost.setOnClickListener(new View.OnClickListener() {
@@ -281,34 +346,76 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }
                 });
 
-                SharePost.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(activity, "share", Toast.LENGTH_SHORT).show();
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                                new SharePostFragment(
-                                        posts.getUsername(),
-                                        posts.getProfileimage(),
-                                        posts.getDate(),
-                                        posts.getTime(),
-                                        posts.getDescription(),
-                                        posts.getPostimage(),
-                                        posts.getPostid()
-                                ))
-                                .addToBackStack(null).commit();
-                        bottomdialog.dismiss();
-                    }
-                });
+                if (posts.getSharepostid() == null) {
+                    SharePost.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(activity, "share", Toast.LENGTH_SHORT).show();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                                    new SharePostFragment(
+                                            posts.getUsername(),
+                                            posts.getProfileimage(),
+                                            posts.getDate(),
+                                            posts.getTime(),
+                                            posts.getDescription(),
+                                            posts.getPostimage(),
+                                            posts.getPostid()
+                                    ))
+                                    .addToBackStack(null).commit();
+                            bottomdialog.dismiss();
+                        }
+                    });
+                }
+                else
+                {
+                    SharePost.setVisibility(View.GONE);
+                }
 
                 ReportPost.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(activity, "report", Toast.LENGTH_SHORT).show();
+                        bottomdialog.dismiss();
+                    }
+                });
+                SavePost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(activity, "Post saved", Toast.LENGTH_SHORT).show();
+                        bottomdialog.dismiss();
                     }
                 });
             }
         });
         //ended popup memu
+        //like buttom start code
+
+        //like button code end
+    }
+
+    private void displayNumberOfLikes(String postId, String currentuserid)
+    {
+        DatabaseReference LikesRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+        LikesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    long numOfLikes = 0;
+                    if (snapshot.hasChild("likes"))
+                    {
+                        numOfLikes = snapshot.child("likes").getValue(Long.class);
+                    }
+
+//                    LikeThumbButton
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void DeleteUserPost(final String currentImageUrl, final AppCompatActivity activity,
@@ -372,8 +479,13 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         TextView shareuploadedtext, postuploadedtext;
 
-        LinearLayout ShareLikeLayout,PostLikeLayout;
+        LinearLayout PostLikeLayout;
+        LinearLayout ShareLikeLayout;
 
+
+
+        TextView LikeDisplayText;
+        final LikeButton LikeThumbButton;
 
         public ViewHolderClass(@NonNull View itemView) {
 
@@ -406,6 +518,12 @@ public class AdapterPosts extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ShareLikeLayout = itemView.findViewById(R.id.sharelikelayout);
 
             PostLikeLayout = itemView.findViewById(R.id.normalpostlikelayout);
+
+
+            LikeDisplayText = itemView.findViewById(R.id.share_display_no_of_likes1);
+
+            LikeThumbButton = itemView.findViewById(R.id.share_like_button);
+
 
 
         }

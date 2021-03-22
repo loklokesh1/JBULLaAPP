@@ -150,7 +150,7 @@
                 android:layout_height="35dp"
                 android:backgroundTint="@android:color/white"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/likeicon"/>
+                android:src="@drawable/unlike"/>
 
             <TextView
                 android:id="@+id/details_display_no_of_likes"

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/edit_post_profile_image"
+            android:layout_width="55dp"
+            android:padding="4dp"
+            android:layout_height="55dp"
+            android:src="@drawable/profile1"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_background_profile"
+            android:layout_marginStart="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/edit_post_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user name"
+                android:fontFamily="@font/salsa"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="8dp"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="5dp"
+                android:padding="2dp">
+                <TextView
+                    android:id="@+id/edit_post_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Uploaded on"
+                    android:fontFamily="@font/salsa"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/edit_post_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:fontFamily="@font/salsa"
+                    android:layout_gravity="center_vertical"
+                    android:padding="4dp"
+                    android:lines="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/edit_post_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:fontFamily="@font/salsa"
+                    android:lines="1"
+                    android:layout_gravity="center_vertical"
+                    android:padding="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/normalpopupmenu"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/menudetails"-->
+<!--                    android:padding="2dp"-->
+<!--                    />-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/edit_post_description1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post description.."
+        android:fontFamily="@font/salsa"
+        android:layout_marginTop="6dp"
+        android:visibility="visible"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:padding="3dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/sharelayoutuserinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="6dp"
+            android:padding="5dp"
+            android:visibility="visible"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/edit_share_post_profile_image"
+                android:layout_width="45dp"
+                android:padding="4dp"
+                android:layout_height="45dp"
+                android:src="@drawable/profile1"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                android:layout_marginStart="4dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/edit_share_post_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="user name"
+                    android:fontFamily="@font/salsa"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="8dp"
+                    android:textAlignment="textStart"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:visibility="visible"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="5dp"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:id="@+id/share_post_text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Uploaded on"
+                        android:fontFamily="@font/salsa"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        />
+
+                    <TextView
+                        android:id="@+id/edit_share_post_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:fontFamily="@font/salsa"
+                        android:layout_gravity="center_vertical"
+                        android:padding="4dp"
+                        android:lines="1"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:visibility="visible"
+                        />
+
+                    <TextView
+                        android:id="@+id/edit_share_post_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:fontFamily="@font/salsa"
+                        android:lines="1"
+                        android:layout_gravity="center_vertical"
+                        android:padding="4dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:visibility="visible"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/edit_share_post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Post description.."
+            android:fontFamily="@font/salsa"
+            android:layout_marginTop="6dp"
+            android:visibility="visible"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:padding="3dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/edit_share_post_image"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:visibility="visible"
+                android:scaleType="centerCrop"
+                tools:ignore="MissingPrefix"
+                />
+
+            <ProgressBar
+                android:id="@+id/edit_progressbarhome11"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:visibility="visible"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

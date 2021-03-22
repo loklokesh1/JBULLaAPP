@@ -35,24 +35,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mahammadjabi.jbulla.BottomNavbarFragments.AskHelpFragment;
 import com.mahammadjabi.jbulla.BottomNavbarFragments.HomeFragment;
 import com.mahammadjabi.jbulla.BottomNavbarFragments.NotificationFragment;
 import com.mahammadjabi.jbulla.BottomNavbarFragments.ProfileFragment;
-import com.mahammadjabi.jbulla.BottomNavbarFragments.SearchFragment;
 import com.mahammadjabi.jbulla.NetworkCheck.MyService;
 import com.mahammadjabi.jbulla.UserRegister.RegisterActivity;
 import com.mahammadjabi.jbulla.UserRegister.SetupActivity;
-import com.mahammadjabi.jbulla.databinding.ActivityMainBinding;
 import com.mahammadjabi.jbulla.userPosts.UserPostsActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+//import com.mahammadjabi.jbulla.databinding.ActivityMainBinding;
+
 
 public class MainActivity extends AppCompatActivity
 {
 
-    ActivityMainBinding binding;
+//    ActivityMainBinding binding;
     public static final String BroadcastStringForAction = "checkinternet";
     private IntentFilter mIntentFilter;
 
@@ -84,14 +85,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
+
 
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(BroadcastStringForAction);
         Intent serviceIntent = new Intent(this, MyService.class);
         startService(serviceIntent);
-
 
         if (isOnline(getApplicationContext()))
         {
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity
                             openFragment(HomeFragment.newInstance("", ""));
                             return true;
                         case R.id.navigation_search:
-                            openFragment(SearchFragment.newInstance("", ""));
+                            openFragment(AskHelpFragment.newInstance("", ""));
 //                            Intent tabactivity = new Intent(MainActivity.this,TabActivity.class);
 //                            startActivity(tabactivity);
                             return true;
@@ -420,7 +421,7 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
         // to show the snackbar
 //        if (doublePressToExit)
 //        {

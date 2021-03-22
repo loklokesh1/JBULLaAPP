@@ -288,7 +288,7 @@
                 android:backgroundTint="@android:color/white"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="25dp"
-                android:src="@drawable/likeicon"/>
+                android:src="@drawable/unlike1"/>
             <!--            </com.facebook.shimmer.ShimmerFrameLayout>-->
             <!--            <com.facebook.shimmer.ShimmerFrameLayout-->
             <!--                android:id="@+id/shimmer9"-->

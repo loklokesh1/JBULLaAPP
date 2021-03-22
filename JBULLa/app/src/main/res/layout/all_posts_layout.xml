@@ -2,9 +2,9 @@
 <ScrollView xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:scrollbars="none"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -211,7 +211,6 @@
                         android:textSize="12sp"
                         android:visibility="visible"
                         />
-
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -265,36 +264,62 @@
             android:id="@+id/sharelikelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             >
-            <ImageView
-                android:id="@+id/like_button1"
+<!--            <Button-->
+<!--                android:id="@+id/share_like_button"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:background="@drawable/unlike1"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:visibility="visible"-->
+<!--                />-->
+
+
+            <com.like.LikeButton
+                android:id="@+id/share_like_button"
+                app:icon_size="30dp"
+                app:like_drawable="@drawable/likeic"
+                app:unlike_drawable="@drawable/unlike1"
                 android:layout_width="30dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@android:color/white"
-                android:layout_gravity="center_vertical"
-                android:visibility="visible"
-                android:src="@drawable/likeicon"/>
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                app:anim_scale_factor="2"
+                />
+<!--            <com.varunest.sparkbutton.SparkButton-->
+<!--                android:id="@+id/spark_like_button"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginStart="6dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                app:sparkbutton_activeImage="@drawable/likeic"-->
+<!--                app:sparkbutton_inActiveImage="@drawable/unlike1"-->
+<!--                app:sparkbutton_iconSize="30dp"-->
+<!--                app:sparkbutton_primaryColor="@color/colorPrimary"-->
+<!--                app:sparkbutton_secondaryColor="@color/bottomnavColor"-->
+<!--                />-->
 
             <TextView
-                android:id="@+id/display_no_of_likes1"
+                android:id="@+id/share_display_no_of_likes1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="143541 likes"
+                android:layout_toRightOf="@+id/share_like_button"
                 android:fontFamily="@font/salsa"
-                android:layout_gravity="center_vertical"
-                android:padding="15dp"
-                android:visibility="visible"
+                android:paddingTop="15dp"
+                android:text="    "
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/comment_button1"
+                android:id="@+id/share_comment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="165dp"
+                android:layout_marginStart="175dp"
+                android:layout_toRightOf="@+id/share_display_no_of_likes1"
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@android:color/white"
                 android:src="@drawable/commentsicon"/>
@@ -331,22 +356,62 @@
                 android:id="@+id/normalpostlikelayout"
                 android:layout_marginRight="10dp">
 
-                <ImageView
-                    android:id="@+id/like_button"
+<!--                <ImageView-->
+<!--                    android:id="@+id/like_button"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:backgroundTint="@android:color/white"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:src="@drawable/unlike1"/>-->
+
+
+                <com.like.LikeButton
+                    android:id="@+id/post_like_button"
+                    app:icon_size="30dp"
+                    app:like_drawable="@drawable/likeic"
+                    app:unlike_drawable="@drawable/unlike1"
                     android:layout_width="30dp"
                     android:layout_height="35dp"
-                    android:backgroundTint="@android:color/white"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/likeicon"/>
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    app:anim_scale_factor="2"
+                    />
 
+
+<!--                <com.varunest.sparkbutton.SparkButton-->
+<!--                    android:id="@+id/like_button"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    app:sparkbutton_activeImage="@drawable/likeic"-->
+<!--                    app:sparkbutton_inActiveImage="@drawable/unlike1"-->
+<!--                    app:sparkbutton_iconSize="30dp"-->
+<!--                    app:sparkbutton_primaryColor="@color/colorPrimary"-->
+<!--                    app:sparkbutton_secondaryColor="@color/bottomnavColor"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/display_no_of_likes"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="1.5k likes"-->
+<!--                    android:fontFamily="@font/salsa"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:padding="15dp"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold"/>-->
                 <TextView
                     android:id="@+id/display_no_of_likes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1.5k likes"
+                    android:text="143541 likes"
                     android:fontFamily="@font/salsa"
-                    android:layout_gravity="center_vertical"
-                    android:padding="15dp"
+                    android:paddingTop="15dp"
+                    android:visibility="visible"
+                    android:layout_toRightOf="@+id/spark_like_button"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"/>

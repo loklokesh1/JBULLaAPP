@@ -467,10 +467,7 @@
 package com.mahammadjabi.jbulla.userPosts;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -479,6 +476,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -515,7 +513,9 @@ public class UserPostsActivity extends AppCompatActivity {
     private TextView UserName;
     private Button SharePostButton;
     private EditText PostDescription,AskTime,AskAmount;
-    private ProgressDialog loadingBar,loadingBarAsk;
+
+    private ProgressBar progressBarShare,progressBarAsk;//added new line
+
     private ImageView SelectPostImage;
     private ImageView SelectPostImage1,rightsideicon1,rightsideicon2;
 
@@ -552,8 +552,8 @@ public class UserPostsActivity extends AppCompatActivity {
         ProfileImage = (CircleImageView) findViewById(R.id.click_post_profile_image);
         UserName = (TextView) findViewById(R.id.click_post_user_name);
 
-        loadingBar = new ProgressDialog(this);
-        loadingBarAsk = new ProgressDialog(this);
+
+//        loadingBarAsk = new ProgressDialog(this);
 
         SelectPostImage = (ImageView) findViewById(R.id.click_post_image);
         SelectPostImage1 = (ImageView) findViewById(R.id.click_post_image1);
@@ -574,6 +574,9 @@ public class UserPostsActivity extends AppCompatActivity {
         AskTime = findViewById(R.id.timetocomplete);
 
 
+        progressBarShare = findViewById(R.id.loadingbarshare);
+
+        progressBarAsk = findViewById(R.id.loadingbarask);
 
 
         SharePostLocal.setOnClickListener(new View.OnClickListener() {
@@ -725,11 +728,7 @@ public class UserPostsActivity extends AppCompatActivity {
 
     private void AskUserPost()
     {
-        loadingBarAsk.setMessage("Sharing post...");
-        loadingBarAsk.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        loadingBarAsk.setCancelable(false);
-        loadingBarAsk.show();
-
+        progressBarAsk.setVisibility(View.VISIBLE);
         SaveingAskHelpUserPostInformationToDatabase();
 
     }
@@ -782,7 +781,8 @@ public class UserPostsActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            loadingBar.dismiss();
+//                            loadingBarShare.dismiss();
+                            progressBarAsk.setVisibility(View.INVISIBLE);
                             Toast.makeText(UserPostsActivity.this, "Error Occured while updating your post", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -813,10 +813,15 @@ public class UserPostsActivity extends AppCompatActivity {
 
     private void ShareUserPost()
     {
-        loadingBar.setMessage("Uploading post...");
-        loadingBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        loadingBar.setCancelable(false);
-        loadingBar.show();
+//        loadingBarShare = new ProgressDialog(UserPostsActivity.this);
+//        loadingBarShare.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        loadingBarShare.setMessage("Uploading post...");
+//        loadingBarShare.setProgress(0);
+//        loadingBarShare.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+//        loadingBarShare.setCancelable(false);
+//        loadingBarShare.show();
+        progressBarShare.setVisibility(View.VISIBLE);
+
         if (ImageUri !=null && postdescription != null)
         {
             StoringImageToFirebaseStorage();
@@ -908,7 +913,8 @@ public class UserPostsActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                loadingBar.dismiss();
+//                                loadingBarShare.dismiss();
+                                progressBarShare.setVisibility(View.INVISIBLE);
                                 Toast.makeText(UserPostsActivity.this, "Error Occured while updating your post", Toast.LENGTH_SHORT).show();
                             }
                         }
